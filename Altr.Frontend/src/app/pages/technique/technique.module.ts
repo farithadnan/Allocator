@@ -1,12 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TechniqueRoutingModule } from './technique-routing.module';
-import { TechniqueComponent } from './technique.component';
 
 
 
 @NgModule({
-  imports: [TechniqueRoutingModule],
-  declarations: [TechniqueComponent],
-  exports: [TechniqueComponent]
+  imports: [
+    CommonModule,
+    TechniqueRoutingModule],
 })
 export class TechniqueModule { }

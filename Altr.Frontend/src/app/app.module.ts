@@ -8,8 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './sidebar-content/sidebar-content.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { PlannerComponent } from './pages/planner/planner.component';
+import { TechniqueComponent } from './pages/technique/technique.component';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -17,22 +21,30 @@ const Ux_Modules = [
   MatButtonModule,
   MatSidenavModule,
   MatIconModule,
+  MatCardModule
+]
+
+const Pages_Components = [
+  AppComponent,
+  NavigationComponent,
+  SidebarContentComponent,
+  CategoryComponent,
+  PlannerComponent,
+  TechniqueComponent
 ]
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavigationComponent,
-    SidebarContentComponent,
+    Pages_Components
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
     RoutingModule,
-    Ux_Modules
+    Ux_Modules,    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
