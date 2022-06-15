@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './sidebar-content/sidebar-content.component';
 
@@ -17,6 +18,7 @@ const Ux_Modules = [
   MatButtonModule,
   MatSidenavModule,
   MatIconModule,
+  MatCardModule
 ]
 
 @NgModule({
@@ -30,7 +32,8 @@ const Ux_Modules = [
     BrowserAnimationsModule,
     LayoutModule,
     RoutingModule,
-    Ux_Modules
+    Ux_Modules,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
