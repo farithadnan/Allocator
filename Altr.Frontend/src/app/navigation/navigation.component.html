@@ -1,0 +1,22 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidebar mode="side" opened>
+        <app-sidebar-content></app-sidebar-content>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content">
+            <div class="toolbar">
+                <mat-toolbar>
+                    <mat-icon (click)="sidebar.toggle()">menu</mat-icon>
+                    <div class="box">
+                        <mat-icon>account_circle</mat-icon>
+                        <mat-icon>exit_to_app</mat-icon>
+                    </div>
+                </mat-toolbar>
+
+            </div>
+        </div>
+        <div class="main">
+            <ng-content></ng-content>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
