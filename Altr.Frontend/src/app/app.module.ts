@@ -9,11 +9,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { PlannerComponent } from './pages/planner/planner.component';
 import { TechniqueComponent } from './pages/technique/technique.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -21,7 +28,13 @@ const Ux_Modules = [
   MatButtonModule,
   MatSidenavModule,
   MatIconModule,
-  MatCardModule
+  MatCardModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatMenuModule
 ]
 
 const Pages_Components = [
@@ -30,7 +43,8 @@ const Pages_Components = [
   SidebarContentComponent,
   CategoryComponent,
   PlannerComponent,
-  TechniqueComponent
+  TechniqueComponent,
+  DashboardComponent
 ]
 
 @NgModule({
