@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavigationComponent } from './navigation/navigation.component';
-import { SidebarContentComponent } from './sidebar-content/sidebar-content.component';
+import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { PlannerComponent } from './pages/planner/planner.component';
 import { TechniqueComponent } from './pages/technique/technique.component';
