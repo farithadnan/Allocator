@@ -4,69 +4,17 @@
         <mat-card-subtitle>Expenditure classification</mat-card-subtitle>
     
         <mat-card-content>
-            <mat-form-field>
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-              </mat-form-field>
+              <app-custom-table [tableData]="dataSource"
+                                [tableColumns]="tableColumn"
+                                [isFilterable]="true"
+                                [isPageable]="true"
+                                [paginationSizes]="[10, 20, 30]"
+                                [defaultPageSize]="4"
+                                (sort)="sortData($event)"
+                                [rowActionIcon]="'more_vert'"
+                                (rowAction)="manageTblAction($event)">  
+              </app-custom-table>
 
-              <!-- Table Section -->
-              <div class="tbl-section-container">
-                <div class="table-container">
-                  <table mat-table [dataSource]="dataSource" matSort>
-              
-                    <!-- Code Column -->
-                    <ng-container matColumnDef="code">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
-                      <td mat-cell *matCellDef="let element" class='m-card-title' test data-label='Riskplan'> <a href='javascript:alert("open the riskplan questionnairre");'>{{element.code}}</a></td>
-                    </ng-container>
-              
-                    <!-- Name Column -->
-                    <ng-container matColumnDef="name">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                      <td mat-cell *matCellDef="let element" class='m-card-sub-title' data-label='Form type'> {{element.name}} </td>
-                    </ng-container>
-              
-                    <!-- Change By Column -->
-                    <ng-container matColumnDef="changedBy">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Changed By </th>
-                      <td mat-cell *matCellDef="let element" class='has_label_on_mobile' data-label='Last modified by'> {{element.audit.updatedBy}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="changedDate">
-                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Changed date </th>
-                      <td mat-cell *matCellDef="let element" class='has_label_on_mobile' data-label='Last modified on'> {{element.audit.updatedDate | date: 'dd-MM-yyyy hh:mm a'}} </td>
-                    </ng-container>
-              
-                    <!-- Symbol Column -->
-                    <ng-container matColumnDef="star">
-                      <th mat-header-cell *matHeaderCellDef> </th>
-                      <td mat-cell *matCellDef="let element"> 
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                          <mat-icon>more_vert</mat-icon>
-                        </button>
-                      </td>
-                    </ng-container>
-              
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                </div>
-                <mat-paginator [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
-              </div>
-              
-              <mat-menu #menu="matMenu" class="tbl-action">
-                <button mat-menu-item>
-                  <mat-icon>remove_red_eye</mat-icon>
-                  <span>View</span>
-                </button>
-                <button mat-menu-item>
-                  <mat-icon>edit</mat-icon>
-                  <span>Edit</span>
-                </button>
-                <button mat-menu-item>
-                  <mat-icon>delete</mat-icon>
-                  <span>Delete</span>
-                </button>
-              </mat-menu>
             
         </mat-card-content>
     </mat-card>

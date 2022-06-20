@@ -21,6 +21,8 @@ import { CategoryComponent } from './pages/category/category.component';
 import { PlannerComponent } from './pages/planner/planner.component';
 import { TechniqueComponent } from './pages/technique/technique.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ALtrTableComponent } from './foundation/reusable-component/a-ltr-table/a-ltr-table.component';
+import { DataPropertyGetterPipe } from './foundation/reusable-component/a-ltr-table/data-property-getter-pipe/data-property-getter.pipe';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -49,7 +51,9 @@ const Pages_Components = [
 
 @NgModule({
   declarations: [
-    Pages_Components
+    Pages_Components,
+    ALtrTableComponent,
+    DataPropertyGetterPipe
   ],
   imports: [
     BrowserModule,
