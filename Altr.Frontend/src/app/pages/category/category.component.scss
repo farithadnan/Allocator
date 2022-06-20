@@ -1,6 +1,7 @@
 table {
     width: 100%;
   }
+
   
   td.mat-column-star {
     width: 20px;
@@ -29,6 +30,11 @@ table {
     color: #3e75ff;
   }
   
+  .mat-menu-item {
+    line-height:25px;
+    height: 35px;
+  }
+
   @media screen and (max-width: 960px) {
     .mat-elevation-z8 {
       background: transparent;
