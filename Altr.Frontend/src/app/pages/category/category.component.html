@@ -4,18 +4,25 @@
         <mat-card-subtitle>Expenditure classification</mat-card-subtitle>
     
         <mat-card-content>
-              <app-custom-table [tableData]="dataSource"
-                                [tableColumns]="tableColumn"
-                                [isFilterable]="true"
-                                [isPageable]="true"
-                                [paginationSizes]="[10, 20, 30]"
-                                [defaultPageSize]="4"
-                                (sort)="sortData($event)"
-                                [rowActionIcon]="'more_vert'"
-                                (rowAction)="manageTblAction($event)">  
-              </app-custom-table>
-
-            
+          <div class="button-section">
+            <button mat-raised-button (click)="createAction()" color="primary">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-raised-button (click)="createAction()" >
+              <mat-icon>print</mat-icon>
+            </button>
+          </div>
+          <!-- Category table -->
+          <app-custom-table [tableData]="dataSource"
+                            [tableColumns]="tableColumn"
+                            [isFilterable]="true"
+                            [isPageable]="true"
+                            [paginationSizes]="[10, 20, 30]"
+                            [defaultPageSize]="4"
+                            (sort)="sortData($event)"
+                            [rowActionIcon]="'more_vert'"
+                            (rowAction)="manageTblAction($event)">  
+          </app-custom-table>
         </mat-card-content>
     </mat-card>
 </div>

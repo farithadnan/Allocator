@@ -2,7 +2,6 @@ import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { AltrTableColumn, ICategory } from 'src/app/foundation/types';
 
 @Component({
@@ -43,8 +42,37 @@ export class CategoryComponent implements OnInit {
     const action = dataObj['action'];
 
     console.log('id: ' + columnId + '\n action: ' + action);
+
+    switch(action){
+      case 'edit':{
+        this.editAction(columnId);
+        break;
+      }
+      case 'delete':{
+        this.deleteAction(columnId);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 
+  createAction(): void {
+
+  }
+
+  editAction(id: number): void {
+
+  }
+
+  deleteAction(id: number): void {
+
+  }
+
+  printAction(): void {
+
+  }
   // Column initialization
   initializeColumns(): void {
     this.tableColumn = [
@@ -106,4 +134,5 @@ export class CategoryComponent implements OnInit {
     }
   ]
   }
+
 }
