@@ -1,0 +1,16 @@
+button.btn-cancel {
+    margin-right: 10px;
+}
+
+.header {
+    text-transform: lowercase;
+}
+
+.header::first-letter {
+    text-transform: uppercase;
+}
+
+.btn-cancel {
+    background-color: red;
+    color: #fff;
+}

@@ -10,6 +10,9 @@ import { AltrTableColumn, ICategory } from 'src/app/foundation/types';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
+  public modalMode: string;
+  public modalTitle: string;
+  public modalData: ICategory;
 
   constructor() { }
   dataSource: ICategory[];
@@ -44,6 +47,10 @@ export class CategoryComponent implements OnInit {
     console.log('id: ' + columnId + '\n action: ' + action);
 
     switch(action){
+      case 'view': {
+        this.viewAction(columnId);
+        break;
+      }
       case 'edit':{
         this.editAction(columnId);
         break;
@@ -56,6 +63,12 @@ export class CategoryComponent implements OnInit {
         break;
       }
     }
+  }
+
+  viewAction(id: number): void { 
+    this.modalMode = 'view';
+    this.modalTitle = 'View Category';
+    this.modalData = this.dataSource.find(x => x.id === id);
   }
 
   createAction(): void {
