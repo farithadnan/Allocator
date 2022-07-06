@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatGridListModule} from '@angular/material/grid-list';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
@@ -26,6 +27,7 @@ import { ALtrTableComponent } from './foundation/reusable-component/a-ltr-table/
 import { DataPropertyGetterPipe } from './foundation/reusable-component/a-ltr-table/data-property-getter-pipe/data-property-getter.pipe';
 import { ModalViewComponent } from './foundation/reusable-component/a-ltr-modal/modal-view/modal-view.component';
 import { DialogModalService } from './foundation/services/dialog-modal.service';
+import { WordSeperatorPipe } from './foundation/pipes/word-seperator.pipe';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -40,7 +42,8 @@ const Ux_Modules = [
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule,
-  MatDialogModule
+  MatDialogModule,
+  MatGridListModule
 ]
 
 const Pages_Components = [
@@ -58,7 +61,8 @@ const Pages_Components = [
     Pages_Components,
     ALtrTableComponent,
     DataPropertyGetterPipe,
-    ModalViewComponent
+    ModalViewComponent,
+    WordSeperatorPipe
   ],
   imports: [
     BrowserModule,

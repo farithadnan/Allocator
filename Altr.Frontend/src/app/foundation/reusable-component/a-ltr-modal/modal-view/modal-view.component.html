@@ -2,7 +2,14 @@
     <h1 mat-dialog-title>{{ data.titleSrc }}</h1>
 </div>
 <div mat-dialog-content>
-    <p class="dialog-message">{{ data.contentSrc['name'] }}</p>
+    <div class="container">
+        <mat-form-field class="row" appearance="legacy" *ngFor="let item of (data.contentSrc | keyvalue)" >
+            <ng-container *ngIf="item.key != 'id'">
+                <mat-label >{{item.key | wordSeperator}} </mat-label>
+                <input matInput value="{{item.value}}">
+            </ng-container>
+        </mat-form-field>
+    </div>
 </div>
 <div mat-dialog-actions>
     <button mat-flat-button color="warn" (click)="cancel()"> {{ data.cancelText }} </button>

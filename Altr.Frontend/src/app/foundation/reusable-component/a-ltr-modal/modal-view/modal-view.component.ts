@@ -23,5 +23,4 @@ export class ModalViewComponent implements OnInit {
   public close(value) {
     this.mdDialogRef.close(value);
   }
-
 }
