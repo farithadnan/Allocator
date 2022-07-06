@@ -15,14 +15,17 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NavigationComponent } from './navigation/navigation.component';
-import { SidebarContentComponent } from './sidebar-content/sidebar-content.component';
+import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { PlannerComponent } from './pages/planner/planner.component';
 import { TechniqueComponent } from './pages/technique/technique.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ALtrTableComponent } from './foundation/reusable-component/a-ltr-table/a-ltr-table.component';
 import { DataPropertyGetterPipe } from './foundation/reusable-component/a-ltr-table/data-property-getter-pipe/data-property-getter.pipe';
+import { ModalViewComponent } from './foundation/reusable-component/a-ltr-modal/modal-view/modal-view.component';
+import { DialogModalService } from './foundation/services/dialog-modal.service';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -36,7 +39,8 @@ const Ux_Modules = [
   MatSortModule,
   MatFormFieldModule,
   MatInputModule,
-  MatMenuModule
+  MatMenuModule,
+  MatDialogModule
 ]
 
 const Pages_Components = [
@@ -53,7 +57,8 @@ const Pages_Components = [
   declarations: [
     Pages_Components,
     ALtrTableComponent,
-    DataPropertyGetterPipe
+    DataPropertyGetterPipe,
+    ModalViewComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,8 @@ const Pages_Components = [
     RoutingModule,
     Ux_Modules,    
   ],
-  providers: [],
+  providers: [DialogModalService],
   bootstrap: [AppComponent],
+  entryComponents: [ModalViewComponent]
 })
 export class AppModule { }

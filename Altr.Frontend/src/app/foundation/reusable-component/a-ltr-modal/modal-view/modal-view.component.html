@@ -1,0 +1,9 @@
+<div class="header">
+    <h1 mat-dialog-title>{{ data.titleSrc }}</h1>
+</div>
+<div mat-dialog-content>
+    <p class="dialog-message">{{ data.contentSrc['name'] }}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="cancel()"> {{ data.cancelText }} </button>
+</div>

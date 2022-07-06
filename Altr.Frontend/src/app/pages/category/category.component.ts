@@ -1,18 +1,20 @@
 import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator} from '@angular/material/paginator';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { AltrTableColumn, ICategory } from 'src/app/foundation/types';
+import { AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
 
+import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
+  public modalData: ICategory;
 
-  constructor() { }
+  constructor(private dialogService: DialogModalService) { }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
 
@@ -43,6 +45,52 @@ export class CategoryComponent implements OnInit {
     const action = dataObj['action'];
 
     console.log('id: ' + columnId + '\n action: ' + action);
+
+    switch(action){
+      case 'view': {
+        this.viewAction(columnId);
+        break;
+      }
+      case 'edit':{
+        this.editAction(columnId);
+        break;
+      }
+      case 'delete':{
+        this.deleteAction(columnId);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
+
+  viewAction(id: number): void { 
+    this.modalData = this.dataSource.find(x => x.id === id);
+
+    const options: AltrViewDialog = {
+      titleSrc: 'View category',
+      contentSrc: this.modalData,
+      cancelText: 'Close'
+    }
+
+    this.dialogService.openView(options);
+  }
+
+  createAction(): void {
+
+  }
+
+  editAction(id: number): void {
+
+  }
+
+  deleteAction(id: number): void {
+
+  }
+
+  printAction(): void {
+
   }
 
   // Column initialization
@@ -106,4 +154,5 @@ export class CategoryComponent implements OnInit {
     }
   ]
   }
+
 }

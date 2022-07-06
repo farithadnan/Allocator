@@ -15,3 +15,9 @@ export interface AltrTableColumn {
     position?: 'right' | 'left'; //should it be right-aligned or left-aligned
     isSortable?: boolean; // can column be sorted
 }
+
+export interface AltrViewDialog {
+    titleSrc: string;
+    contentSrc: any;
+    cancelText: string;
+}
