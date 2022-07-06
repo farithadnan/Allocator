@@ -70,12 +70,9 @@ export class ALtrTableComponent implements OnInit, AfterViewInit {
       this.sort.emit(sortParameters);
   }
 
+  // problem, sec click will change tbl row id to 0 
   fetchInfo(data: any) {
-    if (this.columnId === 0) {
-      this.columnId = data.id;
-    } else {
-      this.columnId = 0;
-    }
+    this.columnId = data.id;
   }
 
   emitRowAction(actionResult: string) {
