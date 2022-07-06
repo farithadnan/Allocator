@@ -1,4 +1,5 @@
-import { Component,Input, OnInit  } from '@angular/core';
+import { Component,Inject, OnInit  } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-modal-view',
@@ -6,18 +7,21 @@ import { Component,Input, OnInit  } from '@angular/core';
   styleUrls: ['./modal-view.component.scss']
 })
 export class ModalViewComponent implements OnInit {
-
-  public modalData: any[];
-  @Input() titleSource: string;
-  @Input() set dataSource(data: any[]) {
-    this.setDataSource(data);
-  }
   
-  constructor() { }
+  constructor(@Inject (MAT_DIALOG_DATA) public data: {
+    titleSrc: string;
+    contentSrc: any;
+    cancelText: string;
+  }, private mdDialogRef: MatDialogRef<ModalViewComponent>) { }
 
   ngOnInit() {}
 
-  setDataSource(data: any[]) {
-    this.modalData = JSON.parse(JSON.stringify(data));
+  public cancel() {
+    this.close(false);
   }
+
+  public close(value) {
+    this.mdDialogRef.close(value);
+  }
+
 }

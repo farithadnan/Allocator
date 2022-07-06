@@ -25,6 +25,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ALtrTableComponent } from './foundation/reusable-component/a-ltr-table/a-ltr-table.component';
 import { DataPropertyGetterPipe } from './foundation/reusable-component/a-ltr-table/data-property-getter-pipe/data-property-getter.pipe';
 import { ModalViewComponent } from './foundation/reusable-component/a-ltr-modal/modal-view/modal-view.component';
+import { DialogModalService } from './foundation/services/dialog-modal.service';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -66,7 +67,8 @@ const Pages_Components = [
     RoutingModule,
     Ux_Modules,    
   ],
-  providers: [],
+  providers: [DialogModalService],
   bootstrap: [AppComponent],
+  entryComponents: [ModalViewComponent]
 })
 export class AppModule { }

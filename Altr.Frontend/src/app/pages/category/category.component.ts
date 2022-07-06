@@ -1,20 +1,20 @@
 import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator} from '@angular/material/paginator';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
-import { AltrTableColumn, ICategory } from 'src/app/foundation/types';
+import { AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
 
+import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  public modalMode: string;
-  public modalTitle: string;
   public modalData: ICategory;
 
-  constructor() { }
+  constructor(private dialogService: DialogModalService) { }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
 
@@ -66,9 +66,15 @@ export class CategoryComponent implements OnInit {
   }
 
   viewAction(id: number): void { 
-    this.modalMode = 'view';
-    this.modalTitle = 'View Category';
     this.modalData = this.dataSource.find(x => x.id === id);
+
+    const options: AltrViewDialog = {
+      titleSrc: 'View category',
+      contentSrc: this.modalData,
+      cancelText: 'Close'
+    }
+
+    this.dialogService.openView(options);
   }
 
   createAction(): void {
@@ -86,6 +92,7 @@ export class CategoryComponent implements OnInit {
   printAction(): void {
 
   }
+
   // Column initialization
   initializeColumns(): void {
     this.tableColumn = [
