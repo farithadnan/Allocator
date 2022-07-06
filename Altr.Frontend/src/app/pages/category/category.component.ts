@@ -12,7 +12,6 @@ import { DialogModalService } from 'src/app/foundation/services/dialog-modal.ser
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  public modalData: ICategory;
 
   constructor(private dialogService: DialogModalService) { }
   dataSource: ICategory[];
@@ -44,7 +43,7 @@ export class CategoryComponent implements OnInit {
     const columnId = dataObj['columnId'];
     const action = dataObj['action'];
 
-    console.log('id: ' + columnId + '\n action: ' + action);
+    console.log('id ' + columnId)
 
     switch(action){
       case 'view': {
@@ -66,11 +65,11 @@ export class CategoryComponent implements OnInit {
   }
 
   viewAction(id: number): void { 
-    this.modalData = this.dataSource.find(x => x.id === id);
+    const content = this.dataSource.find(x => x.id === id);
 
     const options: AltrViewDialog = {
-      titleSrc: 'View category',
-      contentSrc: this.modalData,
+      titleSrc: 'View Category',
+      contentSrc: content,
       cancelText: 'Close'
     }
 

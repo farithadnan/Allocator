@@ -2,15 +2,35 @@ button.btn-cancel {
     margin-right: 10px;
 }
 
-.header {
-    text-transform: lowercase;
+// disable hover effect
+form {
+    pointer-events: none;
 }
 
-.header::first-letter {
-    text-transform: uppercase;
+// Remove input focus
+input:focus {
+    outline: none !important;
 }
+
+.header {
+    text-transform: capitalize;
+}
+
 
 .btn-cancel {
     background-color: red;
     color: #fff;
 }
+
+.container {
+    width: 425px;
+}
+
+// Enabling to put two input into one row, gutter between input
+.row {
+    margin-right: 5px;
+    margin-left: 5px;
+    display: inline-flex;
+    flex-direction: row;
+}
+
