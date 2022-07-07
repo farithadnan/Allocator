@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "hamburgers": "^1.2.1",
     "ngx-logger": "^5.0.11"
   }
 }
