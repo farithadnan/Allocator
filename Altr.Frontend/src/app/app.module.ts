@@ -16,7 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
@@ -43,7 +44,8 @@ const Ux_Modules = [
   MatInputModule,
   MatMenuModule,
   MatDialogModule,
-  MatGridListModule
+  MatGridListModule,
+  MatTooltipModule
 ]
 
 const Pages_Components = [
