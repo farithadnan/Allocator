@@ -6,7 +6,10 @@
     box-sizing: border-box;
     text-decoration: none;
 }
-
+#notification_bell:hover {
+    transform: rotate(20deg);
+    filter: brightness(5.00);
+}
 mat-icon{
     color: #8997ac;
     font-family: 'Material Icons';
