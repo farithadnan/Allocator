@@ -3,17 +3,19 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
-import { AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
+import { AltrCreateDialog, AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
+  form: FormGroup;
 
-  constructor(private dialogService: DialogModalService) { }
+  constructor(private dialogService: DialogModalService, private fb: FormBuilder) { }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
 
@@ -42,8 +44,6 @@ export class CategoryComponent implements OnInit {
   manageTblAction(dataObj: object): void {
     const columnId = dataObj['columnId'];
     const action = dataObj['action'];
-
-    console.log('id ' + columnId)
 
     switch(action){
       case 'view': {
@@ -77,7 +77,30 @@ export class CategoryComponent implements OnInit {
   }
 
   createAction(): void {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      code: ['', Validators.required],
+      description: ['', Validators.required],
+    });
 
+    const options: AltrCreateDialog = {
+      titleSrc: 'Create Category',
+      contentSrc: this.form,
+      cancelText: 'Close',
+      confirmText: 'Confirm'
+    }
+
+    // Trigger opening modal action
+    this.dialogService.openCreate(options);
+
+    // Receive result after the modal is finish closing 
+    this.dialogService.confirmed().subscribe(confirmed => {
+      if (confirmed) {
+        console.log(confirmed);
+
+        // now can execute submission process for creating action
+      }
+    });
   }
 
   editAction(id: number): void {

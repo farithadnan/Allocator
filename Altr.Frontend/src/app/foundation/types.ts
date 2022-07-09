@@ -1,3 +1,5 @@
+import { FormGroup } from "@angular/forms";
+
 export interface ICategory {
     id: number;  
     name: string;
@@ -20,4 +22,11 @@ export interface AltrViewDialog {
     titleSrc: string;
     contentSrc: any;
     cancelText: string;
+}
+
+export interface AltrCreateDialog {
+    titleSrc: string;
+    contentSrc: FormGroup;
+    cancelText: string;
+    confirmText: string;
 }

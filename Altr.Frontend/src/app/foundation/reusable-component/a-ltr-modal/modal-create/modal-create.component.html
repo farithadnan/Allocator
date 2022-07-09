@@ -1,0 +1,24 @@
+<div>
+    <h1 mat-dialog-title>{{ data.titleSrc }}</h1>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="form">
+        <div class="container"  *ngFor="let item of contentData">
+            <mat-form-field class="full-width" appearance="fill" *ngIf="item.key !== 'description'; else text_area">
+                <mat-label >{{ item.key | wordSeperator }}</mat-label>
+                <input matInput placeholder="Enter {{ item.key | wordSeperator }}" formControlName="{{item.key}}">
+            </mat-form-field>
+
+            <ng-template #text_area>
+                <mat-form-field  class="full-width" appearance="fill">
+                    <mat-label>{{ item.key | wordSeperator }}</mat-label>                    
+                    <textarea matInput placeholder="Enter {{ item.key | wordSeperator }}" formControlName="{{item.key}}"></textarea>
+                  </mat-form-field>
+            </ng-template>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="warn" (click)="cancel()"> {{ data.cancelText }} </button>
+    <button mat-flat-button color="primary" (click)="confirm()"> {{ data.confirmText }} </button>
+</div>
