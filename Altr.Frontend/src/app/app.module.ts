@@ -3,6 +3,7 @@ import { RoutingModule } from './routing/routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -76,6 +77,7 @@ const Pages_Components = [
     ReactiveFormsModule,
     FormsModule,
     RoutingModule,
+    HttpClientModule,
     Ux_Modules,    
   ],
   providers: [DialogModalService],

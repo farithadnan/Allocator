@@ -30,7 +30,7 @@ export class ModalCreateComponent implements OnInit {
 
   // Will send result to the dialog opener, place where the dialog is open/initialized
   // in this case the opener is in category component. 
-  public close(value) {
+  public close(value: FormGroup | boolean): void {
     this.mdDialogRef.close(value);
   }
 

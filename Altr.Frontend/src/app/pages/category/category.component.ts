@@ -1,12 +1,13 @@
 import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { AltrCreateDialog, AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CrudService } from 'src/app/foundation/services/crud.service';
+import { HelperService } from 'src/app/foundation/services/helper.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -15,7 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CategoryComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private dialogService: DialogModalService, private fb: FormBuilder) { }
+  constructor(private dialogService: DialogModalService, public crudService: CrudService, public helper: HelperService, private fb: FormBuilder) { }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
 
@@ -83,6 +84,7 @@ export class CategoryComponent implements OnInit {
       description: ['', Validators.required],
     });
 
+    // Neeeded for reusable modal
     const options: AltrCreateDialog = {
       titleSrc: 'Create Category',
       contentSrc: this.form,
@@ -90,15 +92,28 @@ export class CategoryComponent implements OnInit {
       confirmText: 'Confirm'
     }
 
-    // Trigger opening modal action
+    // Trigger opening modal action, with an object parameter
     this.dialogService.openCreate(options);
 
     // Receive result after the modal is finish closing 
     this.dialogService.confirmed().subscribe(confirmed => {
       if (confirmed) {
-        console.log(confirmed);
 
+        // Add createdBy control
+        confirmed.addControl('createdBy', new FormControl('Admin', Validators.required));
+
+        // Add createdDate control
+        confirmed.addControl('createdDate', new FormControl(this.helper.dateFormatter(new Date()), Validators.required));
+
+
+        console.log(confirmed.value)
         // now can execute submission process for creating action
+        // this.crudService.postCreate(confirmed).subscribe(
+        //   res => {
+
+        //   },
+        //   err => {console.log(err);}
+        // )
       }
     });
   }
