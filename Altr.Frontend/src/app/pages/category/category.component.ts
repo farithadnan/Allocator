@@ -105,7 +105,10 @@ export class CategoryComponent implements OnInit {
       if (confirmed) {
         // now can execute submission process for creating action
         this.crudService.postCreate(confirmed, this.endPoint).subscribe({
-          complete: () => {this.crudService.refreshList('category', 'category')},
+          complete: () => {
+            this.crudService.refreshList('category', 'category');
+            this.helper.toastrCreate('create-success', 'category');
+          },
           error(err) {
               console.log(err.message);
           },
