@@ -3,7 +3,9 @@ import { RoutingModule } from './routing/routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -17,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
@@ -29,6 +31,7 @@ import { DataPropertyGetterPipe } from './foundation/reusable-component/a-ltr-ta
 import { ModalViewComponent } from './foundation/reusable-component/a-ltr-modal/modal-view/modal-view.component';
 import { DialogModalService } from './foundation/services/dialog-modal.service';
 import { WordSeperatorPipe } from './foundation/pipes/word-seperator.pipe';
+import { ModalCreateComponent } from './foundation/reusable-component/a-ltr-modal/modal-create/modal-create.component';
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -64,13 +67,17 @@ const Pages_Components = [
     ALtrTableComponent,
     DataPropertyGetterPipe,
     ModalViewComponent,
-    WordSeperatorPipe
+    WordSeperatorPipe,
+    ModalCreateComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
+    ReactiveFormsModule,
+    FormsModule,
     RoutingModule,
+    HttpClientModule,
     Ux_Modules,    
   ],
   providers: [DialogModalService],

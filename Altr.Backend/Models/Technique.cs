@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Altr.Backend.Models.Foundation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Altr.Backend.Models
 {
-    public class Technique
+    public class Technique : DocumentEntity
     {
         public Technique()
         {
             CategorySets = new List<CategorySet>();
         }
 
-        [Key]
-        public int Id { get; set; }
+        public int TechniqueId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string Description { get; set; }
@@ -24,11 +24,11 @@ namespace Altr.Backend.Models
         public DateTime? UpdatedDate { get; set; }
     }
 
-    public class CategorySet
+    public class CategorySet : BaseEntity
     {
         public int TechniqueId { get; set; }
         public virtual Technique Technique { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }

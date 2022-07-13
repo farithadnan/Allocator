@@ -8,13 +8,13 @@
             <button mat-raised-button (click)="createAction()" color="primary" aria-label="Add Category" matTooltip="Add Category" matTooltipPosition="below">
               <mat-icon>add</mat-icon>
             </button>
-            <button mat-raised-button (click)="createAction()" aria-label="Print All Category" matTooltip="Print All Category" matTooltipPosition="below">
+            <button mat-raised-button (click)="printAction()" aria-label="Print All Category" matTooltip="Print All Category" matTooltipPosition="below">
               <mat-icon>print</mat-icon>
             </button>
           </div>
 
           <!-- Category table -->
-          <app-custom-table [tableData]="dataSource"
+          <app-custom-table [tableData]="crudService.categoryList"
                             [tableColumns]="tableColumn"
                             [isFilterable]="true"
                             [isPageable]="true"

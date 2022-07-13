@@ -24,7 +24,4 @@ export class ModalViewComponent implements OnInit {
     this.mdDialogRef.close(value);
   }
 
-  customTrackBy(index: number, obj: any): any {
-    return index;
-  }
 }
