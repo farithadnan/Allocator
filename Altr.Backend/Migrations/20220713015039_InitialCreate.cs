@@ -59,9 +59,8 @@ namespace Altr.Backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategorySetId = table.Column<int>(type: "int", nullable: false),
                     TechniqueId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -75,7 +74,7 @@ namespace Altr.Backend.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CategorySet_Techniques_TechniqueId",
                         column: x => x.TechniqueId,
@@ -92,7 +91,7 @@ namespace Altr.Backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TechniqueId = table.Column<int>(type: "int", nullable: false),
+                    TechniqueId = table.Column<int>(type: "int", nullable: true),
                     TotalAllMonthlyNetIncome = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalAllBalance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -109,7 +108,7 @@ namespace Altr.Backend.Migrations
                         column: x => x.TechniqueId,
                         principalTable: "Techniques",
                         principalColumn: "TechniqueId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -119,8 +118,8 @@ namespace Altr.Backend.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PlanId = table.Column<int>(type: "int", nullable: false),
-                    TechniqueId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    TechniqueId = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: true),
                     TotalSpentCategory = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalBalanceCategory = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -137,7 +136,7 @@ namespace Altr.Backend.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Expenditure_Plans_PlanId",
                         column: x => x.PlanId,
@@ -149,7 +148,7 @@ namespace Altr.Backend.Migrations
                         column: x => x.TechniqueId,
                         principalTable: "Techniques",
                         principalColumn: "TechniqueId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

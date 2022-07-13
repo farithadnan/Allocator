@@ -8,14 +8,14 @@ import { FormGroup } from '@angular/forms';
 export class CrudService {
 
   constructor(private http: HttpClient) { }
-  readonly  apiURL = 'http://localhost:7017/api/category';
+  readonly  apiURL = 'http://localhost:5000/api/category';
 
   postCreate(formData: FormGroup) {
-    return this.http.post(this.apiURL, formData);
+    return this.http.post(this.apiURL, formData.value);
   }
 
   postUpdate(id: number, formData: FormGroup) {
-    return this.http.put(`${this.apiURL}/${id}`, formData)
+    return this.http.put(`${this.apiURL}/${id}`, formData.value)
   }
 
   postDelete(id: number) {

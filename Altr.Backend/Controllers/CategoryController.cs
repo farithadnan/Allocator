@@ -71,6 +71,8 @@ namespace Altr.Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostPaymentDetail(Category category)
         {
+            category.CreatedBy = "Admin";
+            category.CreatedDate = DateTime.Now;
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 

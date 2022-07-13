@@ -13,7 +13,6 @@ namespace Altr.Backend.Models
             CategorySets = new List<CategorySet>();
         }
 
-        [Key]
         public int TechniqueId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
@@ -27,10 +26,9 @@ namespace Altr.Backend.Models
 
     public class CategorySet : BaseEntity
     {
-        public int CategorySetId { get; set; }
         public int TechniqueId { get; set; }
         public virtual Technique Technique { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }

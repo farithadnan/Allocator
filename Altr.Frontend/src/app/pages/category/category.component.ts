@@ -5,9 +5,10 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { AltrCreateDialog, AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -15,8 +16,9 @@ import { HelperService } from 'src/app/foundation/services/helper.service';
 })
 export class CategoryComponent implements OnInit {
   form: FormGroup;
+  dateNowString: string;
 
-  constructor(private dialogService: DialogModalService, public crudService: CrudService, public helper: HelperService, private fb: FormBuilder) { }
+  constructor(private dialogService: DialogModalService, public crudService: CrudService, public helper: HelperService, private fb: FormBuilder) {}
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
 
@@ -98,22 +100,14 @@ export class CategoryComponent implements OnInit {
     // Receive result after the modal is finish closing 
     this.dialogService.confirmed().subscribe(confirmed => {
       if (confirmed) {
-
-        // Add createdBy control
-        confirmed.addControl('createdBy', new FormControl('Admin', Validators.required));
-
-        // Add createdDate control
-        confirmed.addControl('createdDate', new FormControl(this.helper.dateFormatter(new Date()), Validators.required));
-
-
         console.log(confirmed.value)
         // now can execute submission process for creating action
-        // this.crudService.postCreate(confirmed).subscribe(
-        //   res => {
+        this.crudService.postCreate(confirmed).subscribe(
+          res => {
 
-        //   },
-        //   err => {console.log(err);}
-        // )
+          },
+          err => {console.log(err);}
+        )
       }
     });
   }
@@ -124,6 +118,15 @@ export class CategoryComponent implements OnInit {
 
   deleteAction(id: number): void {
 
+  }
+
+  resetAction(): void {
+    this.form.reset();
+
+    for (const key of Object.keys(this.form.controls)) {
+      this.form.controls[key].markAsPristine();
+      this.form.controls[key].updateValueAndValidity();
+    }
   }
 
   printAction(): void {

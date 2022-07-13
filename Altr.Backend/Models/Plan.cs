@@ -14,11 +14,10 @@ namespace Altr.Backend.Models
             SourceIncomes = new List<SourceIncome>();
         }
 
-        [Key]
         public int PlanId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int TechniqueId { get; set; }
+        public int? TechniqueId { get; set; }
         public virtual Technique Technique { get; set; }
         public virtual List<Expenditure> Expenditures { get; set; }
         public virtual List<SourceIncome> SourceIncomes { get; set; }
@@ -39,9 +38,9 @@ namespace Altr.Backend.Models
 
         public int PlanId { get; set; }
         public virtual Plan Plan { get; set; }
-        public int TechniqueId { get; set; }
+        public int? TechniqueId { get; set; }
         public virtual Technique Technique { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
         public virtual List <ExpensesList> ExpensesLists { get; set; }

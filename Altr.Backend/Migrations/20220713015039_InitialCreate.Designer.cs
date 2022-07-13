@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Altr.Backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220712084528_InitialCreate")]
+    [Migration("20220713015039_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,10 +73,7 @@ namespace Altr.Backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategorySetId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
@@ -110,7 +107,7 @@ namespace Altr.Backend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -125,7 +122,7 @@ namespace Altr.Backend.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("TechniqueId")
+                    b.Property<int?>("TechniqueId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalBalanceCategory")
@@ -202,7 +199,7 @@ namespace Altr.Backend.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("TechniqueId")
+                    b.Property<int?>("TechniqueId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalAllBalance")
@@ -290,9 +287,7 @@ namespace Altr.Backend.Migrations
                 {
                     b.HasOne("Altr.Backend.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("Altr.Backend.Models.Technique", "Technique")
                         .WithMany("CategorySets")
@@ -309,9 +304,7 @@ namespace Altr.Backend.Migrations
                 {
                     b.HasOne("Altr.Backend.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("Altr.Backend.Models.Plan", "Plan")
                         .WithMany("Expenditures")
@@ -321,9 +314,7 @@ namespace Altr.Backend.Migrations
 
                     b.HasOne("Altr.Backend.Models.Technique", "Technique")
                         .WithMany()
-                        .HasForeignKey("TechniqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TechniqueId");
 
                     b.Navigation("Category");
 
@@ -347,9 +338,7 @@ namespace Altr.Backend.Migrations
                 {
                     b.HasOne("Altr.Backend.Models.Technique", "Technique")
                         .WithMany()
-                        .HasForeignKey("TechniqueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TechniqueId");
 
                     b.Navigation("Technique");
                 });
