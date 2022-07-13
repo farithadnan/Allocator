@@ -8,6 +8,7 @@ import { DialogModalService } from 'src/app/foundation/services/dialog-modal.ser
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -16,9 +17,11 @@ import { HelperService } from 'src/app/foundation/services/helper.service';
 })
 export class CategoryComponent implements OnInit {
   form: FormGroup;
-  dateNowString: string;
+  endPoint = 'category';
 
-  constructor(private dialogService: DialogModalService, public crudService: CrudService, public helper: HelperService, private fb: FormBuilder) {}
+  constructor(private dialogService: DialogModalService, public crudService: CrudService, public helper: HelperService, private route: ActivatedRoute, private fb: FormBuilder) {
+    this.crudService.categoryList = [];
+  }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
 
@@ -27,7 +30,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.initializeColumns();
-    this.dataSource = this.getDataSource();
+    this.crudService.categoryList = this.route.snapshot.data['category'];
   }
 
 
@@ -35,11 +38,11 @@ export class CategoryComponent implements OnInit {
   sortData(sortParameters: Sort ): any[] {
     const keyName = sortParameters.active;
     if (sortParameters.direction === 'asc') {
-      this.dataSource = this.dataSource.sort((a: ICategory, b: ICategory) => a[keyName].localeCompare(b[keyName]));
+      this.crudService.categoryList = this.crudService.categoryList.sort((a: ICategory, b: ICategory) => a[keyName].localeCompare(b[keyName]));
     } else if (sortParameters.direction === 'desc') {
-      this.dataSource = this.dataSource.sort((a: ICategory, b: ICategory) => b[keyName].localeCompare(a[keyName]));
+      this.crudService.categoryList = this.crudService.categoryList.sort((a: ICategory, b: ICategory) => b[keyName].localeCompare(a[keyName]));
     } else {
-      return this.dataSource = this.getDataSource();
+      return this.crudService.categoryList = this.route.snapshot.data['category'];
     }
   }
 
@@ -100,11 +103,10 @@ export class CategoryComponent implements OnInit {
     // Receive result after the modal is finish closing 
     this.dialogService.confirmed().subscribe(confirmed => {
       if (confirmed) {
-        console.log(confirmed.value)
         // now can execute submission process for creating action
-        this.crudService.postCreate(confirmed).subscribe(
+        this.crudService.postCreate(confirmed, this.endPoint).subscribe(
           res => {
-
+            this.crudService.refreshList('category', 'category');
           },
           err => {console.log(err);}
         )
@@ -168,31 +170,6 @@ export class CategoryComponent implements OnInit {
         isSortable: true
       }
     ]
-  }
-
-  // Fetching data source
-  getDataSource(): any[] {
-    return [{
-      id: 1,
-      code: 'CAT-001',
-      name: 'Category 1',
-      description: 'This is the first category',
-      createdBy: 'Admin',
-      createdDate: formatDate(new Date(), 'dd/MM/yyyy', 'en-US'),
-      updatedBy: 'Admin',
-      updatedDate: formatDate(new Date(), 'dd/MM/yyyy', 'en-US'),
-    },
-    {
-      id: 123,
-      code: 'CAT-123',
-      name: 'Category 123',
-      description: 'This is the One Hundred and twenty three category',
-      createdBy: 'Admin',
-      createdDate: formatDate(new Date(), 'dd/MM/yyyy', 'en-US'),
-      updatedBy: 'Admin',
-      updatedDate: formatDate(new Date(), 'dd/MM/yyyy', 'en-US'),
-    }
-  ]
   }
 
 }

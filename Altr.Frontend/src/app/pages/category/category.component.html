@@ -14,7 +14,7 @@
           </div>
 
           <!-- Category table -->
-          <app-custom-table [tableData]="dataSource"
+          <app-custom-table [tableData]="crudService.categoryList"
                             [tableColumns]="tableColumn"
                             [isFilterable]="true"
                             [isPageable]="true"
