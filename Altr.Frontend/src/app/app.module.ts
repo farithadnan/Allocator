@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { RoutingModule } from './routing/routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -33,6 +33,7 @@ import { ModalViewComponent } from './foundation/reusable-component/a-ltr-modal/
 import { DialogModalService } from './foundation/services/dialog-modal.service';
 import { WordSeperatorPipe } from './foundation/pipes/word-seperator.pipe';
 import { ModalCreateComponent } from './foundation/reusable-component/a-ltr-modal/modal-create/modal-create.component';
+
 
 // To make our code much more cleaner
 const Ux_Modules = [
@@ -86,6 +87,7 @@ const Pages_Components = [
     HttpClientModule,
     Ux_Modules,    
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DialogModalService],
   bootstrap: [AppComponent],
   entryComponents: [ModalViewComponent]
