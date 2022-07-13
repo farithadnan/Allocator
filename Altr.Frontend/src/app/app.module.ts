@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -73,6 +74,11 @@ const Pages_Components = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      maxOpened: 1,
+      positionClass: 'toast-bottom-right',
+      progressBar: true,
+    }),
     LayoutModule,
     ReactiveFormsModule,
     FormsModule,

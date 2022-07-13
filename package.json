@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "@angular/animations": "^14.0.5",
     "hamburgers": "^1.2.1",
-    "ngx-logger": "^5.0.11"
+    "ngx-logger": "^5.0.11",
+    "ngx-toastr": "^15.0.0"
   }
 }
