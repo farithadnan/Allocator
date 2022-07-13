@@ -104,12 +104,12 @@ export class CategoryComponent implements OnInit {
     this.dialogService.confirmed().subscribe(confirmed => {
       if (confirmed) {
         // now can execute submission process for creating action
-        this.crudService.postCreate(confirmed, this.endPoint).subscribe(
-          res => {
-            this.crudService.refreshList('category', 'category');
+        this.crudService.postCreate(confirmed, this.endPoint).subscribe({
+          complete: () => {this.crudService.refreshList('category', 'category')},
+          error(err) {
+              console.log(err.message);
           },
-          err => {console.log(err);}
-        )
+        })
       }
     });
   }
