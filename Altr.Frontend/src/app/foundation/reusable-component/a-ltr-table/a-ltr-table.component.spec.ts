@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { ALtrTableComponent } from './a-ltr-table.component';
 
@@ -8,6 +9,7 @@ describe('ALtrTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [MatMenuModule],
       declarations: [ ALtrTableComponent ]
     })
     .compileComponents();
