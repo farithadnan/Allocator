@@ -3,7 +3,7 @@ import { RoutingModule } from './routing/routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -33,6 +33,8 @@ import { ModalViewComponent } from './foundation/reusable-component/a-ltr-modal/
 import { DialogModalService } from './foundation/services/dialog-modal.service';
 import { WordSeperatorPipe } from './foundation/pipes/word-seperator.pipe';
 import { ModalCreateComponent } from './foundation/reusable-component/a-ltr-modal/modal-create/modal-create.component';
+import { BackEndErrorInterceptor } from './foundation/interceptors/back-end-error.interceptor';
+
 
 
 // To make our code much more cleaner
@@ -70,7 +72,7 @@ const Pages_Components = [
     DataPropertyGetterPipe,
     ModalViewComponent,
     WordSeperatorPipe,
-    ModalCreateComponent
+    ModalCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,7 @@ const Pages_Components = [
     Ux_Modules,    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DialogModalService],
+  providers: [DialogModalService, { provide: HTTP_INTERCEPTORS, useClass: BackEndErrorInterceptor, multi: true}],
   bootstrap: [AppComponent],
   entryComponents: [ModalViewComponent]
 })

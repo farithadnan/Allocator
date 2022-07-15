@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
+import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
 
 @Component({
   selector: 'app-category',
@@ -86,7 +87,10 @@ export class CategoryComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
-      description: ['', Validators.required],
+      description: ['', [Validators.required, Validators.maxLength(50)]],
+    },
+    {
+      validators: MustNotMatch('code', 'TST')
     });
 
     // Neeeded for reusable modal
@@ -108,10 +112,7 @@ export class CategoryComponent implements OnInit {
           complete: () => {
             this.crudService.refreshList('category', 'category');
             this.helper.toastrCreate('create-success', 'category');
-          },
-          error(err) {
-              console.log(err.message);
-          },
+          }
         })
       }
     });

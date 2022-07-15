@@ -24,6 +24,10 @@ export class ModalCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public formError = (controlName: string, errorName: string) => {
+    return this.form.controls[controlName].hasError(errorName);
+  }
+
   public cancel(): void {
     this.close(false);
   }
@@ -35,7 +39,11 @@ export class ModalCreateComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.close(this.form)
+    // Try adding validation here before proceed to backend
+
+    if (this.form.valid) {
+      this.close(this.form)
+    }
   }
 
   private fetchData (): { key: string; value: any; }[]{
