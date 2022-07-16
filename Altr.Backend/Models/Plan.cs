@@ -14,7 +14,6 @@ namespace Altr.Backend.Models
             SourceIncomes = new List<SourceIncome>();
         }
 
-        public int PlanId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int? TechniqueId { get; set; }
