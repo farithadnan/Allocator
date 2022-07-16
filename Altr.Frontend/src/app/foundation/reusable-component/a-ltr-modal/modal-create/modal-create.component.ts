@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ModalCreateComponent implements OnInit {
   form: FormGroup;
+  shakeIt = false;
   public contentData = this.fetchData();
 
   constructor(@Inject (MAT_DIALOG_DATA) public data: {
@@ -24,6 +25,10 @@ export class ModalCreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public formError = (controlName: string, errorName: string) => {
+    return this.form.controls[controlName].hasError(errorName);
+  }
+
   public cancel(): void {
     this.close(false);
   }
@@ -35,7 +40,16 @@ export class ModalCreateComponent implements OnInit {
   }
 
   public confirm(): void {
-    this.close(this.form)
+    // Try adding validation here before proceed to backend
+
+    if (this.form.valid) {
+      this.close(this.form)
+    } else {
+      this.shakeIt = true;
+      setTimeout(() => {
+        this.shakeIt = false;
+      }, 3000);
+    }
   }
 
   private fetchData (): { key: string; value: any; }[]{

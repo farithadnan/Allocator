@@ -39,7 +39,7 @@ export class ALtrTableComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
-    const columnNames = this.tableColumns.map((tableColumn: AltrTableColumn) => tableColumn.name);
+    const columnNames = this.tableColumns?.map((tableColumn: AltrTableColumn) => tableColumn.name);
 
     if (this.rowActionIcon) {
       this.displayedColumns = [...columnNames, this.rowActionIcon];

@@ -71,6 +71,12 @@ namespace Altr.Backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostPaymentDetail(Category category)
         {
+            if (await CategoryCodeExists(category.Code))
+            {
+                return BadRequest("Code Already Existed!");
+            }   
+            
+            
             category.CreatedBy = "Admin";
             category.CreatedDate = DateTime.Now;
             _context.Categories.Add(category);
@@ -97,6 +103,11 @@ namespace Altr.Backend.Controllers
         private bool CategoryDetailExists(int id)
         {
             return _context.Categories.Any(e => e.CategoryId == id);
+        }
+
+        private async Task<bool> CategoryCodeExists(string code)
+        {
+            return await _context.Categories.AnyAsync(e => e.Code == code.ToUpper());
         }
     }
 }
