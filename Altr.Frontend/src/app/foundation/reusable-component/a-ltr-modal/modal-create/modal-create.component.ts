@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class ModalCreateComponent implements OnInit {
   form: FormGroup;
+  shakeIt = false;
   public contentData = this.fetchData();
 
   constructor(@Inject (MAT_DIALOG_DATA) public data: {
@@ -43,6 +44,11 @@ export class ModalCreateComponent implements OnInit {
 
     if (this.form.valid) {
       this.close(this.form)
+    } else {
+      this.shakeIt = true;
+      setTimeout(() => {
+        this.shakeIt = false;
+      }, 3000);
     }
   }
 
