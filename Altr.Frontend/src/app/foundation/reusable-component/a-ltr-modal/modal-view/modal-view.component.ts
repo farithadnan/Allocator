@@ -1,4 +1,5 @@
 import { Component,Inject, OnInit  } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
@@ -20,7 +21,7 @@ export class ModalViewComponent implements OnInit {
     this.close(false);
   }
 
-  public close(value) {
+  public close(value: FormGroup | boolean) {
     this.mdDialogRef.close(value);
   }
 

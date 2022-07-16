@@ -52,7 +52,7 @@ export class DialogModalService {
 
     //  When the dialog is finish closing it will then return the result of observable back to the one who's call this method
     //  in this case, the one who call this message to fetch the result is the one who's calling the openCreate()
-    if (this.dialogMode === 'view') {
+    if (this.dialogMode === 'view') { // maybe can just delete this one?
       return this.dialogRefView.afterClosed().pipe(take(1), map(res => {
         return res;
       }));

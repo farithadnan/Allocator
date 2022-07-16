@@ -20,7 +20,7 @@ export interface AltrTableColumn {
 
 export interface AltrViewDialog {
     titleSrc: string;
-    contentSrc: any;
+    contentSrc: FormGroup;
     cancelText: string;
 }
 
