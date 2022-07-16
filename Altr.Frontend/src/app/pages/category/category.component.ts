@@ -5,7 +5,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { AltrCreateDialog, AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
@@ -90,8 +90,8 @@ export class CategoryComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(50)]],
     },
     {
-      validators: MustNotMatch('code', 'TST')
-    });
+      validators: MustNotMatch(this.crudService, 'code', 'category', 'category')
+    } as AbstractControlOptions);
 
     // Neeeded for reusable modal
     const options: AltrCreateDialog = {

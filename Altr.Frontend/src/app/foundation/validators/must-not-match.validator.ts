@@ -1,21 +1,32 @@
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { CrudService } from '../services/crud.service';
 
 // custom validator to check whether this two field is match or not
-export function MustNotMatch(controlName: string, dataToCompare: string) {
-    return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
+export function MustNotMatch(crudService: CrudService, controlName: string, type: string, endPoint: string): ValidationErrors | null {
+    return (controls: AbstractControl) => {
+        const formControl = controls.get(controlName);
 
-        if (control.errors && !control.errors['mustNotMatch']) {
-            // return if another validator has already found an error on the matchingControl
-            return;
-        }
+        if (formControl && type && endPoint) {
+            let isThereDuplicate = false;
 
-        // set error on matchingControl if validation fails
-        if (control.value === dataToCompare) {
-            control.setErrors({ mustNotMatch: true });
+            // Check if the code already exist or not
+            switch(type.toLowerCase()) {
+                case 'category': {
+                    for (const iterator of crudService.categoryList) {
+                        if (iterator.code === formControl.value) {
+                            isThereDuplicate = true;
+                        }
+                    }
+                }
+            }
+
+            if (isThereDuplicate) {
+                return formControl.setErrors({ mustNotMatch: true });
+            }
         } else {
-            control.setErrors(null);
+            return null;
         }
+
     }
 }
 
