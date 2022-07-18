@@ -13,7 +13,8 @@ export class ModalViewComponent implements OnInit {
     titleSrc: string;
     contentSrc: any;
     cancelText: string;
-  }, private mdDialogRef: MatDialogRef<ModalViewComponent>) { }
+  }, private mdDialogRef: MatDialogRef<ModalViewComponent>) {
+   }
 
   ngOnInit() {}
 

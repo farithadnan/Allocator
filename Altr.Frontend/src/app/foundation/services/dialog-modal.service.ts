@@ -18,6 +18,7 @@ export class DialogModalService {
   //  Fetch dialog opening action for view category modal
   public openView(options: any) {
     this.dialogRefView = this.dialog.open(ModalViewComponent, {
+      disableClose: true,
       data: {
         titleSrc: options.titleSrc,
         contentSrc: options.contentSrc,
@@ -34,6 +35,7 @@ export class DialogModalService {
   public openCreate(options: any) {
     // Open modal with parameter of data
     this.dialogRefCreate = this.dialog.open(ModalCreateComponent, {
+      disableClose: true,
       data: {
         titleSrc: options.titleSrc,
         contentSrc: options.contentSrc,
