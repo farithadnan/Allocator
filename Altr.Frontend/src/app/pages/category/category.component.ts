@@ -72,11 +72,22 @@ export class CategoryComponent implements OnInit {
   }
 
   viewAction(id: number): void { 
-    const content = this.dataSource.find(x => x.id === id);
+    const content = this.crudService.categoryList.find(x => x.id === id);
+
+    this.form = this.fb.group({
+      id: [content.id],
+      code: [ content.code],
+      name: [content.name ],
+      description: [content.description],
+      createdBy: [content.createdBy],
+      createdDate: [content.createdDate],
+      updatedBy: [ content.updatedBy ],
+      updatedDate: [ content.updatedDate ]
+    })
 
     const options: AltrViewDialog = {
       titleSrc: 'View Category',
-      contentSrc: content,
+      contentSrc: this.form,
       cancelText: 'Close'
     }
 

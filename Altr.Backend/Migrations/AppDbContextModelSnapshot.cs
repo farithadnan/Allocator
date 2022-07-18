@@ -21,7 +21,7 @@ namespace Altr.Backend.Migrations
 
             modelBuilder.Entity("Altr.Backend.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -59,7 +59,7 @@ namespace Altr.Backend.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
@@ -171,7 +171,7 @@ namespace Altr.Backend.Migrations
 
             modelBuilder.Entity("Altr.Backend.Models.Plan", b =>
                 {
-                    b.Property<int>("PlanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -206,7 +206,7 @@ namespace Altr.Backend.Migrations
                     b.Property<decimal>("TotalAllMonthlyNetIncome")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("PlanId");
+                    b.HasKey("Id");
 
                     b.HasIndex("TechniqueId");
 
@@ -238,7 +238,7 @@ namespace Altr.Backend.Migrations
 
             modelBuilder.Entity("Altr.Backend.Models.Technique", b =>
                 {
-                    b.Property<int>("TechniqueId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -276,7 +276,7 @@ namespace Altr.Backend.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("TechniqueId");
+                    b.HasKey("Id");
 
                     b.ToTable("Techniques");
                 });

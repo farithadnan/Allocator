@@ -11,7 +11,7 @@ namespace Altr.Backend.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -27,14 +27,14 @@ namespace Altr.Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Techniques",
                 columns: table => new
                 {
-                    TechniqueId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -50,7 +50,7 @@ namespace Altr.Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Techniques", x => x.TechniqueId);
+                    table.PrimaryKey("PK_Techniques", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,13 +73,13 @@ namespace Altr.Backend.Migrations
                         name: "FK_CategorySet_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "CategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CategorySet_Techniques_TechniqueId",
                         column: x => x.TechniqueId,
                         principalTable: "Techniques",
-                        principalColumn: "TechniqueId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -87,7 +87,7 @@ namespace Altr.Backend.Migrations
                 name: "Plans",
                 columns: table => new
                 {
-                    PlanId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -102,12 +102,12 @@ namespace Altr.Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Plans", x => x.PlanId);
+                    table.PrimaryKey("PK_Plans", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Plans_Techniques_TechniqueId",
                         column: x => x.TechniqueId,
                         principalTable: "Techniques",
-                        principalColumn: "TechniqueId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -135,19 +135,19 @@ namespace Altr.Backend.Migrations
                         name: "FK_Expenditure_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "CategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Expenditure_Plans_PlanId",
                         column: x => x.PlanId,
                         principalTable: "Plans",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Expenditure_Techniques_TechniqueId",
                         column: x => x.TechniqueId,
                         principalTable: "Techniques",
-                        principalColumn: "TechniqueId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -168,7 +168,7 @@ namespace Altr.Backend.Migrations
                         name: "FK_SourceIncome_Plans_PlanId",
                         column: x => x.PlanId,
                         principalTable: "Plans",
-                        principalColumn: "PlanId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
