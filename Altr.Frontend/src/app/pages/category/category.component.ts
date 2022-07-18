@@ -74,7 +74,6 @@ export class CategoryComponent implements OnInit {
   viewAction(id: number): void { 
     const content = this.crudService.categoryList.find(x => x.id === id);
 
-
     this.form = this.fb.group({
       id: [content.id],
       code: [ content.code],

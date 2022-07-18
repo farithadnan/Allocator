@@ -6,7 +6,7 @@
         <div class="container">
             <mat-form-field class="row" appearance="outline" *ngFor="let item of data.contentSrc.value | keyvalue">
                 <mat-label style="font-weight: bold; font-size: 18px;">{{item.key | wordSeperator}}</mat-label>
-                <input matInput  value="{{item.value ? item.value : 'tra'}}" readonly="readonly" tabindex="-1" >
+                <input matInput  value="{{item.value ? item.value : '-'}}" readonly="readonly" tabindex="-1" >
             </mat-form-field>
         </div>
     </form>

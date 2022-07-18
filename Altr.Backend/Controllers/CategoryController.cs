@@ -42,7 +42,7 @@ namespace Altr.Backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPaymentDetail(int id, Category category)
         {
-            if (id != category.CategoryId)
+            if (id != category.Id)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace Altr.Backend.Controllers
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategoryDetail", new { id = category.CategoryId }, category);
+            return CreatedAtAction("GetCategoryDetail", new { id = category.Id }, category);
         }
         
         [HttpDelete("{id}")]
@@ -102,7 +102,7 @@ namespace Altr.Backend.Controllers
 
         private bool CategoryDetailExists(int id)
         {
-            return _context.Categories.Any(e => e.CategoryId == id);
+            return _context.Categories.Any(e => e.Id == id);
         }
 
         private async Task<bool> CategoryCodeExists(string code)
