@@ -1,0 +1,35 @@
+<div [ngClass]="{'shake': shakeIt, 'dialog-class': true}">
+    <div>
+        <h1 mat-dialog-title>{{ data.titleSrc }}</h1>
+    </div>
+    <div mat-dialog-content>
+        <form [formGroup]="form">
+            <div class="container"  *ngFor="let item of contentData">
+                <mat-card-content>
+                    <mat-form-field class="full-width" appearance="fill" *ngIf="item.key !== 'description'; else text_area">
+                        <mat-label >{{ item.key | wordSeperator }}</mat-label>
+                        <input matInput placeholder="Enter {{ item.key | wordSeperator }}" formControlName="{{item.key}}">
+                        <mat-error *ngIf="formError(item.key,'required')">{{ item.key | wordSeperator }} is required!</mat-error>
+                        <mat-error *ngIf="formError(item.key,'maxlength')">characters limit exceeded!</mat-error>
+                        <mat-error *ngIf="formError(item.key,'mustNotMatch')">{{item.key | wordSeperator }} already existed!</mat-error>
+                    </mat-form-field>
+
+                    <ng-template #text_area>
+                        <mat-form-field  class="full-width" appearance="fill">
+                            <mat-label>{{ item.key | wordSeperator }}</mat-label>                    
+                            <textarea matInput placeholder="Enter {{ item.key | wordSeperator }}" formControlName="{{item.key}}"></textarea>
+                            <mat-error *ngIf="formError(item.key,'required')">{{ item.key | wordSeperator }} is required!</mat-error>
+                            <mat-error *ngIf="formError(item.key,'maxlength')">Characters limit exceeded!</mat-error>
+                            <mat-error *ngIf="formError(item.key,'mustNotMatch')">{{item.key | wordSeperator }} already existed!</mat-error>
+                        </mat-form-field>
+                    </ng-template>
+                </mat-card-content>
+            </div>
+        </form>
+    </div>
+    {{ this.form.status | json}}
+    <div mat-dialog-actions>
+        <button mat-flat-button color="warn" (click)="cancel()"> {{ data.cancelText }} </button>
+        <button mat-flat-button color="primary" (click)="confirm()"> {{ data.confirmText }} </button>
+    </div>
+</div>

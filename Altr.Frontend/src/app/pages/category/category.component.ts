@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { AltrCreateDialog, AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
+import { AltrTableColumn, AltrDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +10,8 @@ import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
+
+
 
 @Component({
   selector: 'app-category',
@@ -25,6 +27,7 @@ export class CategoryComponent implements OnInit {
   }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -85,10 +88,11 @@ export class CategoryComponent implements OnInit {
       updatedDate: [ content.updatedDate ]
     })
 
-    const options: AltrViewDialog = {
+    const options: AltrDialog = {
       titleSrc: 'View Category',
       contentSrc: this.form,
-      cancelText: 'Close'
+      cancelText: 'Close',
+      confirmText: 'Hello'
     }
 
     this.dialogService.openView(options);
@@ -105,11 +109,10 @@ export class CategoryComponent implements OnInit {
     } as AbstractControlOptions);
 
     // Neeeded for reusable modal
-    const options: AltrCreateDialog = {
+    const options: AltrDialog = {
       titleSrc: 'Create Category',
       contentSrc: this.form,
       cancelText: 'Close',
-      confirmText: 'Confirm'
     }
 
     // Trigger opening modal action, with an object parameter
@@ -130,7 +133,28 @@ export class CategoryComponent implements OnInit {
   }
 
   editAction(id: number): void {
+    const content = this.crudService.categoryList.find(x => x.id === id);
 
+    this.form = this.fb.group({
+      name: [content.name, Validators.required],
+      code: [content.code, Validators.required],
+      description: [content.description, [Validators.required, Validators.maxLength(50)]],
+    },
+    {
+      validators: MustNotMatch(this.crudService, 'code', 'category', 'category')
+    } as AbstractControlOptions);
+
+
+    // Neeeded for reusable modal
+    const options: AltrDialog = {
+      titleSrc: 'Edit Category',
+      contentSrc: this.form,
+      cancelText: 'Close',
+      confirmText: 'Confirm'
+    }
+
+    // Trigger opening modal action, with an object parameter
+    this.dialogService.openEdit(options);
   }
 
   deleteAction(id: number): void {

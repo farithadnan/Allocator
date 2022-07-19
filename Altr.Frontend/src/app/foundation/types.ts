@@ -18,15 +18,9 @@ export interface AltrTableColumn {
     isSortable?: boolean; // can column be sorted
 }
 
-export interface AltrViewDialog {
+export interface AltrDialog {
     titleSrc: string;
     contentSrc: FormGroup;
     cancelText: string;
-}
-
-export interface AltrCreateDialog {
-    titleSrc: string;
-    contentSrc: FormGroup;
-    cancelText: string;
-    confirmText: string;
+    confirmText?: string;
 }
