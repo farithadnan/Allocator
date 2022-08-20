@@ -113,6 +113,7 @@ export class CategoryComponent implements OnInit {
       titleSrc: 'Create Category',
       contentSrc: this.form,
       cancelText: 'Close',
+      confirmText: 'Create'
     }
 
     // Trigger opening modal action, with an object parameter
