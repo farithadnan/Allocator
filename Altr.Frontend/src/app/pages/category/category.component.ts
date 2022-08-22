@@ -137,13 +137,10 @@ export class CategoryComponent implements OnInit {
     const content = this.crudService.categoryList.find(x => x.id === id);
 
     this.form = this.fb.group({
-      name: [content.name, Validators.required],
-      code: [content.code, Validators.required],
+      name: [{value: content.name, disabled: true}],
+      code: [{value: content.code, disabled: true}],
       description: [content.description, [Validators.required, Validators.maxLength(50)]],
-    },
-    {
-      validators: MustNotMatch(this.crudService, 'code', 'category', 'category')
-    } as AbstractControlOptions);
+    });
 
 
     // Neeeded for reusable modal
