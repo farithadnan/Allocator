@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AbstractControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -6,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HelperService {
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, private fb: FormBuilder) { }
 
   toastrCreate(type: string, endpoint: string): void {
     let titleMsg: string;
@@ -23,8 +24,14 @@ export class HelperService {
         titleMsg = 'Create Error';
         contentMsg = `${endpoint} is already existed!`;
         this.toastrBlaster(titleMsg, contentMsg, 'error');
+        break;
       }
-
+      case 'update-success': {
+        titleMsg = 'Update Success'
+        contentMsg = `${endpoint} has been successfully updated!`;
+        this.toastrBlaster(titleMsg, contentMsg, 'success');
+        break;      
+      }
     }
   }
 
@@ -52,4 +59,5 @@ export class HelperService {
       }
     }
   }
+
 }

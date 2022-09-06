@@ -10,6 +10,7 @@ import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
+import { filter, map, switchMap } from 'rxjs';
 
 
 
@@ -120,17 +121,20 @@ export class CategoryComponent implements OnInit {
     this.dialogService.openCreate(options);
 
     // Receive result after the modal is finish closing 
-    this.dialogService.confirmed().subscribe(confirmed => {
-      if (confirmed) {
-        // now can execute submission process for creating action
-        this.crudService.postCreate(confirmed, this.endPoint).subscribe({
-          complete: () => {
-            this.crudService.refreshList('category', 'category');
-            this.helper.toastrCreate('create-success', 'category');
-          }
+    this.dialogService.confirmed()
+      .pipe(
+        filter((res: FormGroup) => res.value),
+        switchMap((result: FormGroup) => {
+          return this.crudService.postCreate(result, this.endPoint)
+            .pipe(map(() => {
+              return  this.crudService.refreshList('category', 'category');
+            }))
         })
-      }
-    });
+      ).subscribe({
+        complete: () => {
+          this.helper.toastrCreate('create-success', 'category');
+        }
+      })
   }
 
   editAction(id: number): void {
@@ -153,6 +157,22 @@ export class CategoryComponent implements OnInit {
 
     // Trigger opening modal action, with an object parameter
     this.dialogService.openEdit(options);
+
+    this.dialogService.confirmed()
+      .pipe(
+        filter((res: FormGroup) => res.value),
+        switchMap((result: FormGroup) => {
+          return this.crudService.postUpdate(id, result, this.endPoint)
+            .pipe(map(() => {
+              return this.crudService.refreshList('category', 'category');
+            }))
+        })
+      ).subscribe({
+        complete: () => {
+          this.helper.toastrCreate('update-success', 'category');
+        }
+      })
+      
   }
 
   deleteAction(id: number): void {

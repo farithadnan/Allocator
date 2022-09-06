@@ -59,20 +59,18 @@ export class DialogModalService {
   // Fetch current action of a close dialog, in this case it will be categorised by different mode of modal
   public confirmed(): Observable<any> {
     const dialogRefCol = [this.dialogRefView, this.dialogRefEdit, this.dialogRefCreate];
-    let endResult: Observable<any>;
+    let endResult$: Observable<any>;
     //  When the dialog is finish closing it will then return the result of observable back to the one who's call this method
     //  in this case, the one who call this message to fetch the result is the one who's calling the openCreate()
 
     dialogRefCol.forEach((data) => {
       if (data) {
-        endResult =  data.afterClosed().pipe(take(1), map(res => {
+        endResult$ =  data.afterClosed().pipe(take(1), map(res => {
           return res;
         }));
       }
     })
 
-    if (endResult) {
-      return endResult;
-    }
+    return endResult$;
   }
 }
