@@ -5,12 +5,12 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { AltrTableColumn, AltrDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
-import { filter, map, switchMap } from 'rxjs';
+import { catchError, filter, map, switchMap } from 'rxjs';
 
 
 
@@ -123,27 +123,22 @@ export class CategoryComponent implements OnInit {
     // Receive result after the modal is finish closing 
     this.dialogService.confirmed()
       .pipe(
-        filter((res: FormGroup) => res.value),
+        filter((filteredResult: FormGroup) => filteredResult.value),
         switchMap((result: FormGroup) => {
           return this.crudService.postCreate(result, this.endPoint)
             .pipe(map(() => {
-              return  this.crudService.refreshList('category', 'category');
+              this.crudService.refreshList('category', 'category');
+              this.helper.toastrCreate('create-success', 'category');
             }))
         })
-      ).subscribe({
-        complete: () => {
-          this.helper.toastrCreate('create-success', 'category');
-        }
-      })
+      ).subscribe()
   }
 
   editAction(id: number): void {
     const content = this.crudService.categoryList.find(x => x.id === id);
 
     this.form = this.fb.group({
-      name: [{value: content.name, disabled: true}],
-      code: [{value: content.code, disabled: true}],
-      description: [content.description, [Validators.required, Validators.maxLength(50)]],
+      description: [content.description, [Validators.required, Validators.maxLength(50)]],   
     });
 
 
@@ -158,20 +153,26 @@ export class CategoryComponent implements OnInit {
     // Trigger opening modal action, with an object parameter
     this.dialogService.openEdit(options);
 
+    this.form.addControl('id', new FormControl(content.id));
+    this.form.addControl('code', new FormControl(content.code));
+    this.form.addControl('name', new FormControl(content.name));
+    this.form.addControl('createdBy', new FormControl(content.createdBy));
+    this.form.addControl('createdDate', new FormControl(content.createdDate));
+    this.form.addControl('updatedBy', new FormControl(content.updatedBy));
+    this.form.addControl('updatedDate', new FormControl(content.updatedDate));
+
+      
     this.dialogService.confirmed()
       .pipe(
-        filter((res: FormGroup) => res.value),
+        filter((filteredResult: FormGroup) => filteredResult.value),
         switchMap((result: FormGroup) => {
           return this.crudService.postUpdate(id, result, this.endPoint)
             .pipe(map(() => {
-              return this.crudService.refreshList('category', 'category');
+              this.crudService.refreshList('category', 'category');
+              this.helper.toastrCreate('update-success', 'category');
             }))
         })
-      ).subscribe({
-        complete: () => {
-          this.helper.toastrCreate('update-success', 'category');
-        }
-      })
+      ).subscribe()
       
   }
 

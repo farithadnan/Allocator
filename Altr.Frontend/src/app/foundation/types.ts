@@ -24,3 +24,18 @@ export interface AltrDialog {
     cancelText: string;
     confirmText?: string;
 }
+
+export interface IFormField {
+    label: string;
+    fieldName: string;
+    fieldType: string;
+    fieldValue: string;
+    placeholder: string;
+    values: IDropdown[];
+}
+
+export interface IDropdown {
+    displayValue: string;
+    internalValue: string;
+}
+

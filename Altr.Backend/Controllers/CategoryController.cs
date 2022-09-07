@@ -27,27 +27,41 @@ namespace Altr.Backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategoryDetail(int id)
+        public async Task<ActionResult<Category>> GetCategoryDetail([FromRoute]int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var category = await _context.Categories.SingleOrDefaultAsync(data => data.Id == id);
 
             if (category == null)
             {
                 return NotFound();
             }
 
-            return category;
+            return Ok(category);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaymentDetail(int id, Category category)
+        public async Task<IActionResult> PutPaymentDetail([FromRoute] int id, [FromBody] Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (id != category.Id)
             {
                 return BadRequest();
+
             }
 
+            category.UpdatedBy = "Admin";
+            category.UpdatedDate = DateTime.Now;
             _context.Entry(category).State = EntityState.Modified;
+
 
             try
             {
@@ -64,13 +78,17 @@ namespace Altr.Backend.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> PostPaymentDetail(Category category)
+        public async Task<ActionResult<Category>> PostPaymentDetail([FromBody] Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (await CategoryCodeExists(category.Code))
             {
                 return BadRequest("Code Already Existed!");
@@ -86,8 +104,13 @@ namespace Altr.Backend.Controllers
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategoryDetail(int id)
+        public async Task<IActionResult> DeleteCategoryDetail([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var category = await _context.Categories.FindAsync(id);
             if (category == null)
             {
@@ -97,7 +120,7 @@ namespace Altr.Backend.Controllers
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(category);
         }
 
         private bool CategoryDetailExists(int id)

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { IDropdown } from '../types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
 
-  constructor(private toastr: ToastrService, private fb: FormBuilder) { }
+  constructor(private toastr: ToastrService) { }
 
   toastrCreate(type: string, endpoint: string): void {
     let titleMsg: string;
