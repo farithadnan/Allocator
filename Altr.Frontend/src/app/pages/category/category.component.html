@@ -19,9 +19,9 @@
                             [isFilterable]="true"
                             [isPageable]="true"
                             [paginationSizes]="[10, 20, 30]"
+                            [rowActionIcon]="'more_vert'"
                             [defaultPageSize]="4"
                             (sort)="sortData($event)"
-                            [rowActionIcon]="'more_vert'"
                             (rowAction)="manageTblAction($event)">  
           </app-custom-table>          
         </mat-card-content>

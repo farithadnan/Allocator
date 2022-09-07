@@ -25,15 +25,14 @@ export class ALtrTableComponent implements OnInit, AfterViewInit {
   @Input() rowActionIcon: string;
   @Input() paginationSizes: number[] = [10, 30, 50, 100];
   @Input() defaultPageSize  = this.paginationSizes[1];
-
-  // Output to parent component
-  @Output() sort: EventEmitter<Sort> = new EventEmitter();
-  @Output() rowAction = new EventEmitter<{columnId: number, action: string}>();
-
   // this property needs to have a setter, to dynamically get changes from parent component
   @Input() set tableData(data: any[]) {
     this.setTableDataSource(data);
   }
+  
+  // Output to parent component
+  @Output() sort: EventEmitter<Sort> = new EventEmitter();
+  @Output() rowAction = new EventEmitter<{columnId: number, action: string}>();
   
 
   constructor() { }

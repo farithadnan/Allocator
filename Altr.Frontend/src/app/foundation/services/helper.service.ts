@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { IDropdown } from '../types';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +25,14 @@ export class HelperService {
         titleMsg = 'Create Error';
         contentMsg = `${endpoint} is already existed!`;
         this.toastrBlaster(titleMsg, contentMsg, 'error');
+        break;
       }
-
+      case 'update-success': {
+        titleMsg = 'Update Success'
+        contentMsg = `${endpoint} has been successfully updated!`;
+        this.toastrBlaster(titleMsg, contentMsg, 'success');
+        break;      
+      }
     }
   }
 
@@ -52,4 +60,5 @@ export class HelperService {
       }
     }
   }
+
 }

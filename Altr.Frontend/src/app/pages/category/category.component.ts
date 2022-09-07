@@ -2,14 +2,17 @@ import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { AltrCreateDialog, AltrTableColumn, AltrViewDialog, ICategory } from 'src/app/foundation/types';
+import { AltrTableColumn, AltrDialog, ICategory } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
+import { catchError, filter, map, switchMap } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-category',
@@ -25,6 +28,7 @@ export class CategoryComponent implements OnInit {
   }
   dataSource: ICategory[];
   tableColumn: AltrTableColumn[];
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -85,10 +89,11 @@ export class CategoryComponent implements OnInit {
       updatedDate: [ content.updatedDate ]
     })
 
-    const options: AltrViewDialog = {
+    const options: AltrDialog = {
       titleSrc: 'View Category',
       contentSrc: this.form,
-      cancelText: 'Close'
+      cancelText: 'Close',
+      confirmText: 'Hello'
     }
 
     this.dialogService.openView(options);
@@ -105,32 +110,70 @@ export class CategoryComponent implements OnInit {
     } as AbstractControlOptions);
 
     // Neeeded for reusable modal
-    const options: AltrCreateDialog = {
+    const options: AltrDialog = {
       titleSrc: 'Create Category',
       contentSrc: this.form,
       cancelText: 'Close',
-      confirmText: 'Confirm'
+      confirmText: 'Create'
     }
 
     // Trigger opening modal action, with an object parameter
     this.dialogService.openCreate(options);
 
     // Receive result after the modal is finish closing 
-    this.dialogService.confirmed().subscribe(confirmed => {
-      if (confirmed) {
-        // now can execute submission process for creating action
-        this.crudService.postCreate(confirmed, this.endPoint).subscribe({
-          complete: () => {
-            this.crudService.refreshList('category', 'category');
-            this.helper.toastrCreate('create-success', 'category');
-          }
+    this.dialogService.confirmed()
+      .pipe(
+        filter((filteredResult: FormGroup) => filteredResult.value),
+        switchMap((result: FormGroup) => {
+          return this.crudService.postCreate(result, this.endPoint)
+            .pipe(map(() => {
+              this.crudService.refreshList('category', 'category');
+              this.helper.toastrCreate('create-success', 'category');
+            }))
         })
-      }
-    });
+      ).subscribe()
   }
 
   editAction(id: number): void {
+    const content = this.crudService.categoryList.find(x => x.id === id);
 
+    this.form = this.fb.group({
+      description: [content.description, [Validators.required, Validators.maxLength(50)]],   
+    });
+
+
+    // Neeeded for reusable modal
+    const options: AltrDialog = {
+      titleSrc: 'Edit Category',
+      contentSrc: this.form,
+      cancelText: 'Close',
+      confirmText: 'Confirm'
+    }
+
+    // Trigger opening modal action, with an object parameter
+    this.dialogService.openEdit(options);
+
+    this.form.addControl('id', new FormControl(content.id));
+    this.form.addControl('code', new FormControl(content.code));
+    this.form.addControl('name', new FormControl(content.name));
+    this.form.addControl('createdBy', new FormControl(content.createdBy));
+    this.form.addControl('createdDate', new FormControl(content.createdDate));
+    this.form.addControl('updatedBy', new FormControl(content.updatedBy));
+    this.form.addControl('updatedDate', new FormControl(content.updatedDate));
+
+      
+    this.dialogService.confirmed()
+      .pipe(
+        filter((filteredResult: FormGroup) => filteredResult.value),
+        switchMap((result: FormGroup) => {
+          return this.crudService.postUpdate(id, result, this.endPoint)
+            .pipe(map(() => {
+              this.crudService.refreshList('category', 'category');
+              this.helper.toastrCreate('update-success', 'category');
+            }))
+        })
+      ).subscribe()
+      
   }
 
   deleteAction(id: number): void {

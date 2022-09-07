@@ -34,6 +34,7 @@ import { DialogModalService } from './foundation/services/dialog-modal.service';
 import { WordSeperatorPipe } from './foundation/pipes/word-seperator.pipe';
 import { ModalCreateComponent } from './foundation/reusable-component/a-ltr-modal/modal-create/modal-create.component';
 import { BackEndErrorInterceptor } from './foundation/interceptors/back-end-error.interceptor';
+import { ModalEditComponent } from './foundation/reusable-component/a-ltr-modal/modal-edit/modal-edit.component';
 
 
 
@@ -73,6 +74,7 @@ const Pages_Components = [
     ModalViewComponent,
     WordSeperatorPipe,
     ModalCreateComponent,
+    ModalEditComponent,
   ],
   imports: [
     BrowserModule,
