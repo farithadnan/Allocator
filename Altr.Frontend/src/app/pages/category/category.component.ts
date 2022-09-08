@@ -10,6 +10,7 @@ import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
 import { filter, map, switchMap } from 'rxjs';
+import { CategoryModel } from 'src/app/foundation/models/category.model';
 
 
 
@@ -38,7 +39,6 @@ export class CategoryComponent implements OnInit {
     this.crudService.categoryList = this.route.snapshot.data['category'];
   }
 
-
   // Sorting functionality
   sortData(sortParameters: Sort ): any[] {
     const keyName = sortParameters.active;
@@ -63,6 +63,8 @@ export class CategoryComponent implements OnInit {
       }
       case 'edit':{
         this.editAction(columnId);
+        this.addEditControls(this.fetchCategory(columnId));
+        this.submitEdit(columnId);
         break;
       }
       case 'delete':{
@@ -75,10 +77,23 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  viewAction(id: number): void { 
-    const content = this.crudService.categoryList.find(x => x.id === id);
 
-    this.form = this.fb.group({
+
+  viewAction(id: number): void { 
+    this.dialogService.openView(this.assignViewContent(id));
+  }
+
+  assignViewContent(id: number): AltrDialog {
+    return {
+      titleSrc: 'View Category',
+      contentSrc: this.patchViewForm(this.fetchCategory(id)),
+      cancelText: 'Close',
+      confirmText: ''
+    }
+  }
+
+  patchViewForm(content: CategoryModel): FormGroup {
+    return this.fb.group({
       id: [content.id],
       code: [ content.code],
       name: [content.name ],
@@ -88,19 +103,18 @@ export class CategoryComponent implements OnInit {
       updatedBy: [ content.updatedBy ],
       updatedDate: [ content.updatedDate ]
     })
-
-    const options: AltrDialog = {
-      titleSrc: 'View Category',
-      contentSrc: this.form,
-      cancelText: 'Close',
-      confirmText: 'Hello'
-    }
-
-    this.dialogService.openView(options);
   }
 
+
+
   createAction(): void {
-    this.form = this.fb.group({
+    // Trigger opening modal action, with an object parameter
+    this.dialogService.openCreate(this.assignCreateContent());
+    this.submitCreate();
+  }
+
+  patchCreateForm(): FormGroup {
+    return this.fb.group({
       name: ['', Validators.required],
       code: ['', Validators.required],
       description: ['', [Validators.required, Validators.maxLength(50)]],
@@ -108,18 +122,18 @@ export class CategoryComponent implements OnInit {
     {
       validators: MustNotMatch(this.crudService, 'code', 'category', 'category')
     } as AbstractControlOptions);
+  }
 
-    // Neeeded for reusable modal
-    const options: AltrDialog = {
+  assignCreateContent(): AltrDialog {
+    return {
       titleSrc: 'Create Category',
-      contentSrc: this.form,
+      contentSrc: this.patchCreateForm(),
       cancelText: 'Close',
       confirmText: 'Create'
     }
+  }
 
-    // Trigger opening modal action, with an object parameter
-    this.dialogService.openCreate(options);
-
+  submitCreate(): void {
     // Receive result after the modal is finish closing 
     this.dialogService.confirmed()
       .pipe(
@@ -134,25 +148,29 @@ export class CategoryComponent implements OnInit {
       ).subscribe()
   }
 
-  editAction(id: number): void {
-    const content = this.crudService.categoryList.find(x => x.id === id);
 
-    this.form = this.fb.group({
+
+  editAction(id: number): void {
+    // Trigger opening modal action, with an object parameter
+    this.dialogService.openEdit(this.assignEditContent(id)); 
+  }
+
+  patchEditForm(content: CategoryModel): FormGroup {
+    return this.form = this.fb.group({
       description: [content.description, [Validators.required, Validators.maxLength(50)]],   
     });
+  }
 
-
-    // Neeeded for reusable modal
-    const options: AltrDialog = {
+  assignEditContent(id: number): AltrDialog {
+    return {
       titleSrc: 'Edit Category',
-      contentSrc: this.form,
+      contentSrc: this.patchEditForm(this.fetchCategory(id)),
       cancelText: 'Close',
       confirmText: 'Confirm'
     }
+  }
 
-    // Trigger opening modal action, with an object parameter
-    this.dialogService.openEdit(options);
-
+  addEditControls(content: CategoryModel): void {
     this.form.addControl('id', new FormControl(content.id));
     this.form.addControl('code', new FormControl(content.code));
     this.form.addControl('name', new FormControl(content.name));
@@ -160,8 +178,9 @@ export class CategoryComponent implements OnInit {
     this.form.addControl('createdDate', new FormControl(content.createdDate));
     this.form.addControl('updatedBy', new FormControl(content.updatedBy));
     this.form.addControl('updatedDate', new FormControl(content.updatedDate));
+  }
 
-      
+  submitEdit(id: number): void {
     this.dialogService.confirmed()
       .pipe(
         filter((filteredResult: FormGroup) => filteredResult.value),
@@ -173,8 +192,9 @@ export class CategoryComponent implements OnInit {
             }))
         })
       ).subscribe()
-      
   }
+
+
 
   deleteAction(id: number): void {
 
@@ -191,6 +211,11 @@ export class CategoryComponent implements OnInit {
 
   printAction(): void {
 
+  }
+
+  // Fetch specific category
+  fetchCategory(id: number): CategoryModel {
+    return this.crudService.categoryList.find(x => x.id === id);
   }
 
   // Table column assignment
