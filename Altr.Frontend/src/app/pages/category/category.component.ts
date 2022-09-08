@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -10,7 +9,7 @@ import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
-import { catchError, filter, map, switchMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 
 
 
@@ -23,7 +22,8 @@ export class CategoryComponent implements OnInit {
   form: FormGroup;
   endPoint = 'category';
 
-  constructor(private dialogService: DialogModalService, public crudService: CrudService, public helper: HelperService, private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(private dialogService: DialogModalService, public crudService: CrudService, 
+    public helper: HelperService, private route: ActivatedRoute, private fb: FormBuilder) {
     this.crudService.categoryList = [];
   }
   dataSource: ICategory[];
