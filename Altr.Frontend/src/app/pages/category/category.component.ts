@@ -193,7 +193,7 @@ export class CategoryComponent implements OnInit {
 
   }
 
-  // Column initialization
+  // Table column assignment
   initializeColumns(): void {
     this.tableColumn = [
       {
