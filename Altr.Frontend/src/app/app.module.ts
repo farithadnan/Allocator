@@ -35,6 +35,7 @@ import { WordSeperatorPipe } from './foundation/pipes/word-seperator.pipe';
 import { ModalCreateComponent } from './foundation/reusable-component/a-ltr-modal/modal-create/modal-create.component';
 import { BackEndErrorInterceptor } from './foundation/interceptors/back-end-error.interceptor';
 import { ModalEditComponent } from './foundation/reusable-component/a-ltr-modal/modal-edit/modal-edit.component';
+import { ModalConfirmComponent } from './foundation/reusable-component/a-ltr-modal/modal-confirm/modal-confirm.component';
 
 
 
@@ -75,6 +76,7 @@ const Pages_Components = [
     WordSeperatorPipe,
     ModalCreateComponent,
     ModalEditComponent,
+    ModalConfirmComponent,
   ],
   imports: [
     BrowserModule,
