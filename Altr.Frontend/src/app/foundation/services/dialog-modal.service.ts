@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {map, take} from 'rxjs/operators';
 import { ModalCreateComponent } from '../reusable-component/a-ltr-modal/modal-create/modal-create.component';
 import { ModalEditComponent } from '../reusable-component/a-ltr-modal/modal-edit/modal-edit.component';
+import { ModalConfirmComponent } from '../reusable-component/a-ltr-modal/modal-confirm/modal-confirm.component';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,13 @@ export class DialogModalService {
   dialogRefView: MatDialogRef<ModalViewComponent>;
   dialogRefCreate: MatDialogRef<ModalCreateComponent>;
   dialogRefEdit: MatDialogRef<ModalEditComponent>;
+  dialogRefConfirm: MatDialogRef<ModalConfirmComponent>;
 
   //  Fetch dialog opening action for view category modal
   public openView(options: any) {
     this.dialogRefView = this.dialog.open(ModalViewComponent, {
       disableClose: true,
+      autoFocus: false,
       data: {
         titleSrc: options.titleSrc,
         contentSrc: options.contentSrc,
@@ -56,9 +59,22 @@ export class DialogModalService {
     })
   }
 
+  public openConfirm(options: any) {
+    this.dialogRefConfirm = this.dialog.open(ModalConfirmComponent, {
+      disableClose: true,
+      data: {
+        titleSrc: options.titleSrc,
+        contentSrc: options.contentSrc,
+        cancelText: options.cancelText,
+        confirmText: options.confirmText
+      }    
+    })
+  }
+
+
   // Fetch current action of a close dialog, in this case it will be categorised by different mode of modal
   public confirmed(): Observable<any> {
-    const dialogRefCol = [this.dialogRefView, this.dialogRefEdit, this.dialogRefCreate];
+    const dialogRefCol = [this.dialogRefView, this.dialogRefEdit, this.dialogRefCreate, this.dialogRefConfirm];
     let endResult$: Observable<any>;
     //  When the dialog is finish closing it will then return the result of observable back to the one who's call this method
     //  in this case, the one who call this message to fetch the result is the one who's calling the openCreate()

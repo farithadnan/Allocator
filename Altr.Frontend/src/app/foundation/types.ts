@@ -20,7 +20,7 @@ export interface AltrTableColumn {
 
 export interface AltrDialog {
     titleSrc: string;
-    contentSrc: FormGroup;
+    contentSrc: FormGroup | string;
     cancelText: string;
     confirmText?: string;
 }
