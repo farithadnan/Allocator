@@ -13,13 +13,9 @@ input:focus {
 }
 
 .header {
-    text-transform: capitalize;
-}
-
-
-.btn-cancel {
-    background-color: red;
-    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .container {

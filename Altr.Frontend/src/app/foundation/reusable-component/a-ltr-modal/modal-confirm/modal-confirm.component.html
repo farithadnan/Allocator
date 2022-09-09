@@ -1,11 +1,11 @@
 <div [ngClass]="{'shake': shakeIt, 'dialog-class': true}">
     <div class="header">
-        <h1 mat-dialog-title>title</h1>
+        <h2 mat-dialog-title>title</h2>
     </div>
     <div mat-dialog-content>
         Are you sure you want to do this?
     </div>
-    <div mat-dialog-actions>
+    <div mat-dialog-actions [align]="'end'">
         <button mat-raised-button color="warn" [mat-dialog-close]="true">No</button>
         <button mat-raised-button color="primary" [mat-dialog-close]="false">Yes</button>
     </div>
