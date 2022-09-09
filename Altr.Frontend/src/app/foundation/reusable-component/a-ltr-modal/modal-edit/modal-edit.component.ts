@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { filter, map } from 'rxjs';
+import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
+import { AltrDialog } from 'src/app/foundation/types';
 
 @Component({
   selector: 'app-modal-edit',
@@ -17,7 +20,8 @@ export class ModalEditComponent implements OnInit {
     contentSrc: FormGroup;
     cancelText: string;
     confirmText: string;
-  }, private mdDialogRef: MatDialogRef<ModalEditComponent>) {
+  }, private mdDialogRef: MatDialogRef<ModalEditComponent>,
+     private dialogService: DialogModalService) {
     // Copy formgroup to another formgroup
     this.form = data.contentSrc
    }
@@ -30,8 +34,30 @@ export class ModalEditComponent implements OnInit {
   }
 
   public cancel(): void {
-    this.close(false);
+    if (!this.form.pristine && this.form.touched ) {
+      this.dialogService.openConfirm(this.assignConfirmContent())
+      this.executeConfirmDialog();
+    } else {
+      this.close(false);
+    }
   }
+
+  assignConfirmContent(): AltrDialog {
+    return {
+      titleSrc: 'Confirmation',
+      contentSrc: 'Are you sure you want to do this?',
+      cancelText: 'No',
+      confirmText: 'Yes'
+    }
+  }
+
+  executeConfirmDialog(): void {
+    this.dialogService.confirmed().pipe(
+      filter((resp) => resp),
+      map(() => this.close(true))
+    ).subscribe()
+  }
+  
 
   // Will send result to the dialog opener, place where the dialog is open/initialized
   // in this case the opener is in category component. 

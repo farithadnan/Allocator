@@ -96,6 +96,6 @@ const Pages_Components = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DialogModalService, { provide: HTTP_INTERCEPTORS, useClass: BackEndErrorInterceptor, multi: true}],
   bootstrap: [AppComponent],
-  entryComponents: [ModalViewComponent]
+  entryComponents: [ModalViewComponent, ModalConfirmComponent]
 })
 export class AppModule { }
