@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Altr.Backend.Models.Foundation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Altr.Backend.Models
 {
-    public class Plan
+    public class Plan : DocumentEntity
     {
         public Plan()
         {
@@ -14,10 +15,10 @@ namespace Altr.Backend.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public int Id {get;set;}
         public string Name { get; set; }
         public string Description { get; set; }
-        public int TechniqueId { get; set; }
+        public int? TechniqueId { get; set; }
         public virtual Technique Technique { get; set; }
         public virtual List<Expenditure> Expenditures { get; set; }
         public virtual List<SourceIncome> SourceIncomes { get; set; }
@@ -29,17 +30,18 @@ namespace Altr.Backend.Models
         public ExpendStatus Status { get; set; }
     }
 
-    public class Expenditure
+    public class Expenditure : BaseEntity
     {
         public Expenditure()
         {
             ExpensesLists = new List<ExpensesList>();
         }
+
         public int PlanId { get; set; }
         public virtual Plan Plan { get; set; }
-        public int TechniqueId { get; set; }
+        public int? TechniqueId { get; set; }
         public virtual Technique Technique { get; set; }
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }
 
         public virtual List <ExpensesList> ExpensesLists { get; set; }
@@ -59,7 +61,7 @@ namespace Altr.Backend.Models
 
     }
 
-    public class SourceIncome
+    public class SourceIncome : BaseEntity
     {
         public int PlanId { get; set; }
         public virtual Plan Plan { get; set; }
@@ -69,7 +71,7 @@ namespace Altr.Backend.Models
         public decimal TotalMonthlyNetIncome { get; set; }
     }
 
-    public class ExpensesList
+    public class ExpensesList : BaseEntity
     {
         public int ExpenditureId { get; set; }
         public virtual Expenditure Expenditure { get; set; }

@@ -1,1 +1,31 @@
-<p>category works!</p>
+<div class="mat-elevation-z2">
+    <mat-card>
+        <mat-card-title>Category</mat-card-title>
+        <mat-card-subtitle>Expenditure classification</mat-card-subtitle>
+    
+        <mat-card-content>
+          <div class="button-section">
+            <button mat-raised-button (click)="createAction()" color="primary" aria-label="Add Category" matTooltip="Add Category" matTooltipPosition="below">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-raised-button (click)="printAction()" aria-label="Print All Category" matTooltip="Print All Category" matTooltipPosition="below">
+              <mat-icon>print</mat-icon>
+            </button>
+          </div>
+
+          <!-- Category table -->
+          <app-custom-table [tableData]="crudService.categoryList"
+                            [tableColumns]="tableColumn"
+                            [isFilterable]="true"
+                            [isPageable]="true"
+                            [paginationSizes]="[10, 20, 30]"
+                            [rowActionIcon]="'more_vert'"
+                            [defaultPageSize]="4"
+                            (sort)="sortData($event)"
+                            (rowAction)="manageTblAction($event)">  
+          </app-custom-table>          
+        </mat-card-content>
+    </mat-card>
+</div>
+
+

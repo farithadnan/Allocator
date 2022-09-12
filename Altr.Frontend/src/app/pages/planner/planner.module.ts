@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { PlannerComponent } from './planner.component';
 import { PlannerRoutingModule } from './planner-routing.module';
+import { CommonModule } from '@angular/common';
 
 
 
 @NgModule({
-  imports: [PlannerRoutingModule],
-  declarations: [PlannerComponent],
-  exports: [PlannerComponent]
+  imports: [
+    CommonModule,
+    PlannerRoutingModule],
 })
 export class PlannerModule { }

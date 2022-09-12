@@ -1,0 +1,32 @@
+button:hover {
+    filter: brightness(96%);
+}
+
+// disable hover effect
+form {
+    pointer-events: none;
+}
+
+// Remove input focus
+input:focus {
+    outline: none !important;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    width: 425px;
+}
+
+// Enabling to put two input into one row, gutter between input
+.row {
+    margin-right: 5px;
+    margin-left: 5px;
+    display: inline-flex;
+    flex-direction: row;
+}
+

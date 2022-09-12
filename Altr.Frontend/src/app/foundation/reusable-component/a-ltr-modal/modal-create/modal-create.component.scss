@@ -1,0 +1,53 @@
+button:hover {
+    filter: brightness(96%);
+}
+mat-label {
+    font-weight: bold; 
+    font-size: 18px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-class {
+    padding: 5px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.container {
+    width: 500px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.shake {
+    animation: shake-animation 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    animation-duration: 0.5s;
+  }
+    
+  @keyframes shake-animation {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }

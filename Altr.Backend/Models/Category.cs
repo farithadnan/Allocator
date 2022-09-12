@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Altr.Backend.Models.Foundation;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Altr.Backend.Models
 {
-    public class Category
+    public class Category : DocumentEntity
     {
         [Key]
         public int Id { get; set; }
