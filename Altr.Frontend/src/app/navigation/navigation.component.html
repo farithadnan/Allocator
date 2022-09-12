@@ -12,6 +12,12 @@
                         </span>
                     </button>
                     <div class="box">
+                        <span matTooltip="Change Color Theme" matTooltipPosition="below">
+                            <mat-icon>brightness_5</mat-icon>
+                            <mat-slide-toggle [formControl]="toggleControl" class="toggle-slider">
+                            </mat-slide-toggle>
+                            <mat-icon>bedtime</mat-icon>
+                        </span>
                         <mat-icon aria-label="My Account" matTooltip="My Account" matTooltipPosition="below">account_circle</mat-icon>
                         <mat-icon aria-label="Logout" matTooltip="Logout" matTooltipPosition="below">exit_to_app</mat-icon>
                     </div>

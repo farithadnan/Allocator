@@ -27,10 +27,6 @@ mat-sidenav-content {
 }
 
 mat-toolbar {
-
-    button:hover {
-        filter: brightness(40%);
-    }
     mat-icon {
         margin-left: 15px;
         color: #6D8299;
@@ -44,5 +40,8 @@ mat-toolbar {
 
 mat-icon:hover {
     cursor: pointer;
-    filter: brightness(40%);
+}
+
+.toggle-slider {
+    margin-left: 10px;
 }
