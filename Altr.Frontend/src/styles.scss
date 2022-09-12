@@ -36,3 +36,13 @@ $angular-dark-theme: mat.define-dark-theme(
 
 html, body { height: 100%; margin: 0}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media screen and (max-width: 960px) {
+    mat-form-field {
+        width: 100%;
+    }
+
+    .container {
+        width: 100% !important;
+    }
+}
