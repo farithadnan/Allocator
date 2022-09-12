@@ -1,5 +1,9 @@
 <div id="top"></div>
 
+<p align="center">
+ <img src="allocator.png" alt=" logo" width="500px"/>                                                           
+</p>  
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
