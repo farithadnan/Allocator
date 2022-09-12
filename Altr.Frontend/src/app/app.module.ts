@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
@@ -54,7 +55,8 @@ const Ux_Modules = [
   MatMenuModule,
   MatDialogModule,
   MatGridListModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSlideToggleModule
 ]
 
 const Pages_Components = [
