@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { AltrTableColumn, AltrDialog, ICategory } from 'src/app/foundation/types';
@@ -22,6 +23,7 @@ import { CategoryModel } from 'src/app/foundation/models/category.model';
 export class CategoryComponent implements OnInit {
   form: FormGroup;
   endPoint = 'category';
+  pipeDate = new DatePipe('en-MY');
 
   constructor(private dialogService: DialogModalService, public crudService: CrudService, 
     public helper: HelperService, private route: ActivatedRoute, private fb: FormBuilder) {
@@ -94,14 +96,13 @@ export class CategoryComponent implements OnInit {
 
   patchViewForm(content: CategoryModel): FormGroup {
     return this.fb.group({
-      id: [content.id],
       code: [ content.code],
       name: [content.name ],
       description: [content.description],
       createdBy: [content.createdBy],
-      createdDate: [content.createdDate],
+      createdDate: [ this.pipeDate.transform(content.createdDate, "dd/MM/yyyy (h:mm a)")],
       updatedBy: [ content.updatedBy ],
-      updatedDate: [ content.updatedDate ]
+      updatedDate: [ this.pipeDate.transform(content.updatedDate, "dd/MM/yyyy (h:mm a)") ]
     })
   }
 
