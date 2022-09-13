@@ -58,8 +58,6 @@ export class CategoryComponent implements OnInit {
     const columnId = dataObj['columnId'];
     const action = dataObj['action'];
 
-    console.log("action: " + action);
-
     switch(action){
       case 'view': {
         this.viewAction(columnId);
