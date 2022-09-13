@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SidebarContentComponent } from './navigation/sidebar-content/sidebar-content.component';
 import { CategoryComponent } from './pages/category/category.component';
@@ -37,6 +38,7 @@ import { ModalCreateComponent } from './foundation/reusable-component/a-ltr-moda
 import { BackEndErrorInterceptor } from './foundation/interceptors/back-end-error.interceptor';
 import { ModalEditComponent } from './foundation/reusable-component/a-ltr-modal/modal-edit/modal-edit.component';
 import { ModalConfirmComponent } from './foundation/reusable-component/a-ltr-modal/modal-confirm/modal-confirm.component';
+import { HttpRequestInterceptor } from './foundation/interceptors/http-request-interceptor';
 
 
 
@@ -56,7 +58,8 @@ const Ux_Modules = [
   MatDialogModule,
   MatGridListModule,
   MatTooltipModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatProgressSpinnerModule
 ]
 
 const Pages_Components = [
@@ -96,7 +99,10 @@ const Pages_Components = [
     Ux_Modules,    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DialogModalService, { provide: HTTP_INTERCEPTORS, useClass: BackEndErrorInterceptor, multi: true}],
+  providers: [DialogModalService, 
+    { provide: HTTP_INTERCEPTORS, useClass: BackEndErrorInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ModalViewComponent, ModalConfirmComponent]
 })
