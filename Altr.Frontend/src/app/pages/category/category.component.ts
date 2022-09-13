@@ -10,7 +10,7 @@ import { CrudService } from 'src/app/foundation/services/crud.service';
 import { HelperService } from 'src/app/foundation/services/helper.service';
 import { ActivatedRoute } from '@angular/router';
 import { MustNotMatch } from 'src/app/foundation/validators/must-not-match.validator';
-import { filter, map, switchMap } from 'rxjs';
+import { filter, first, map, switchMap } from 'rxjs';
 import { CategoryModel } from 'src/app/foundation/models/category.model';
 
 
@@ -57,6 +57,8 @@ export class CategoryComponent implements OnInit {
   manageTblAction(dataObj: object): void {
     const columnId = dataObj['columnId'];
     const action = dataObj['action'];
+
+    console.log("action: " + action);
 
     switch(action){
       case 'view': {
@@ -141,12 +143,18 @@ export class CategoryComponent implements OnInit {
         filter((filteredResult: FormGroup) => filteredResult.value),
         switchMap((result: FormGroup) => {
           return this.crudService.postCreate(result, this.endPoint)
-            .pipe(map(() => {
-              this.crudService.refreshList('category', 'category');
-              this.helper.toastrCreate('create-success', 'category');
-            }))
+            .pipe(first())
         })
-      ).subscribe()
+      ).subscribe({
+        next: () => {
+          this.crudService.refreshList('category', 'category');
+          this.helper.toastrCreate('create-success', 'category');
+          window.location.reload();
+        },
+        error: error => {
+          console.log(error)
+        }
+      })
   }
 
 
@@ -187,12 +195,17 @@ export class CategoryComponent implements OnInit {
         filter((filteredResult: FormGroup) => filteredResult.value),
         switchMap((result: FormGroup) => {
           return this.crudService.postUpdate(id, result, this.endPoint)
-            .pipe(map(() => {
-              this.crudService.refreshList('category', 'category');
-              this.helper.toastrCreate('update-success', 'category');
-            }))
+            .pipe(first())
         })
-      ).subscribe()
+      ).subscribe({
+        next: () => {
+          this.crudService.refreshList('category', 'category');
+          this.helper.toastrCreate('update-success', 'category');
+        },
+        error: error => {
+          console.log(error)
+        }
+      })
   }
 
 
@@ -203,11 +216,6 @@ export class CategoryComponent implements OnInit {
 
   resetAction(): void {
     this.form.reset();
-
-    for (const key of Object.keys(this.form.controls)) {
-      this.form.controls[key].markAsPristine();
-      this.form.controls[key].updateValueAndValidity();
-    }
   }
 
   printAction(): void {
