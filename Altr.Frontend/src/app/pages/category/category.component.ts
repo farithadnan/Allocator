@@ -136,9 +136,9 @@ export class CategoryComponent implements OnInit {
 
   submitCreate(): void {
     // Receive result after the modal is finish closing 
-    this.dialogService.confirmed()
+    this.dialogService.confirmed(2)
       .pipe(
-        filter((filteredResult: FormGroup) => filteredResult.value),
+        filter((filteredResult: FormGroup) => filteredResult.valid),
         switchMap((result: FormGroup) => {
           return this.crudService.postCreate(result, this.endPoint)
             .pipe(first())
@@ -188,7 +188,7 @@ export class CategoryComponent implements OnInit {
   }
 
   submitEdit(id: number): void {
-    this.dialogService.confirmed()
+    this.dialogService.confirmed(1)
       .pipe(
         filter((filteredResult: FormGroup) => filteredResult.value),
         switchMap((result: FormGroup) => {

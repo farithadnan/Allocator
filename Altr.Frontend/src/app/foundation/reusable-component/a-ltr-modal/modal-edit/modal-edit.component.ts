@@ -52,7 +52,7 @@ export class ModalEditComponent implements OnInit {
   }
 
   executeConfirmDialog(): void {
-    this.dialogService.confirmed().pipe(
+    this.dialogService.confirmed(3).pipe(
       filter((resp) => resp),
       map(() => this.close(true))
     ).subscribe()
