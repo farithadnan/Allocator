@@ -20,7 +20,7 @@ export function MustNotMatch(crudService: CrudService, controlName: string, type
                 }
             }
 
-            if (isThereDuplicate) {
+            if (isThereDuplicate && formControl.value) {
                 return formControl.setErrors({ mustNotMatch: true });
             }
         } else {
