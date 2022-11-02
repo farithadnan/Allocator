@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LoadingService {
+export class LoadingSpinnerService {
   loadingSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   loadingMap: Map<string, boolean> = new Map<string, boolean>();
 
