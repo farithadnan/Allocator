@@ -6,10 +6,10 @@ import { CrudService } from '../services/crud.service';
     providedIn: 'root'
 })
 
-export class CategoryResolverService implements Resolve<any> {
+export class TechniqueResolverService implements Resolve<any> {
     constructor(private crudService: CrudService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.crudService.fetchAllDetail('category','category');
+        return this.crudService.fetchAllTechniqueDetail('technique');
     }
 }
