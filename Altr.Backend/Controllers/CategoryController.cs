@@ -45,7 +45,7 @@ namespace Altr.Backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaymentDetail([FromRoute] int id, [FromBody] Category category)
+        public async Task<IActionResult> PutCategoryDetail([FromRoute] int id, [FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Altr.Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Category>> PostPaymentDetail([FromBody] Category category)
+        public async Task<ActionResult<Category>> PostCategoryDetail([FromBody] Category category)
         {
             if (!ModelState.IsValid)
             {

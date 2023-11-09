@@ -1,3 +1,11 @@
+
+<div *ngIf="loading" class="loading-container flex-content-center">
+    <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+    </mat-progress-spinner>
+</div>
+
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidebar mode="side" opened>
         <app-sidebar-content></app-sidebar-content>
@@ -6,7 +14,7 @@
         <div class="content">
             <div class="toolbar">
                 <mat-toolbar>
-                    <button (click)="sidebar.toggle(); clicked()" class="hamburger hamburger--3dx" type="button" aria-label="Menu" aria-controls="navigation" aria-expanded="true/false" [ngClass]="{'is-active': isOpen}" matTooltip="Menu" matTooltipPosition="below">
+                    <button (click)="sidebar.toggle(); toggleIsClicked()" class="hamburger hamburger--3dx" type="button" aria-label="Menu" aria-controls="navigation" aria-expanded="true/false" [ngClass]="{'is-active': isOpen}" matTooltip="Menu" matTooltipPosition="below">
                         <span class="hamburger-box">
                           <span class="hamburger-inner"></span>
                         </span>

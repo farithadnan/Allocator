@@ -2,9 +2,11 @@ import { AfterViewInit, Component, ViewChild, ChangeDetectorRef, HostBinding, On
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { FormControl } from '@angular/forms';
-import { OverlayContainer } from 'ngx-toastr';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModalService } from '../foundation/services/dialog-modal.service';
+import { LoadingSpinnerService } from '../foundation/services/loading-spinner.service';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -12,6 +14,8 @@ import { DialogModalService } from '../foundation/services/dialog-modal.service'
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements AfterViewInit, OnInit {
+  loading: boolean = false;
+
   @ViewChild(MatSidenav)
   sidenav!  : MatSidenav;
   isOpen = false;
@@ -21,16 +25,18 @@ export class NavigationComponent implements AfterViewInit, OnInit {
   darkClassName = 'darkMode';
 
   constructor(private observer: BreakpointObserver, private cdr: ChangeDetectorRef, 
-              private overlay: OverlayContainer) { }
+              private overlayContainer: OverlayContainer, private _loadingSpinner: LoadingSpinnerService) { }
 
   ngOnInit(): void {
+    this.listenToLoading();
+
     this.toggleControl.valueChanges.subscribe((darkMode) => {
       this.className = darkMode ? this.darkClassName : '';
 
       if (darkMode) {
-        this.overlay.getContainerElement().classList.add(this.darkClassName);
+        this.overlayContainer.getContainerElement().classList.add(this.darkClassName);
       } else {
-        this.overlay.getContainerElement().classList.remove(this.darkClassName);
+        this.overlayContainer.getContainerElement().classList.remove(this.darkClassName);
       }
     });
   }
@@ -51,9 +57,17 @@ export class NavigationComponent implements AfterViewInit, OnInit {
       this.cdr.detectChanges();
   }
 
-  clicked()
+  toggleIsClicked()
   {
     this.isOpen = !this.isOpen;
+  }
+
+  listenToLoading(): void {
+    this._loadingSpinner.loadingSub
+      .pipe(delay(0))
+      .subscribe((loading) => {
+        this.loading = loading;
+      });
   }
 
 }

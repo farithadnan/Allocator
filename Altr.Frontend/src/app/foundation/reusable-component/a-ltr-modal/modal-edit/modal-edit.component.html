@@ -19,7 +19,6 @@
                             <mat-label>{{ item.key | wordSeperator }}</mat-label>                    
                             <textarea matInput placeholder="Enter {{ item.key | wordSeperator }}" formControlName="{{item.key}}"></textarea>
                             <mat-error *ngIf="formError(item.key,'required')">{{ item.key | wordSeperator }} is required!</mat-error>
-                            <mat-error *ngIf="formError(item.key,'maxlength')">Characters limit exceeded!</mat-error>
                             <mat-error *ngIf="formError(item.key,'mustNotMatch')">{{item.key | wordSeperator }} already existed!</mat-error>
                         </mat-form-field>
                     </ng-template>
