@@ -1,8 +1,11 @@
 <div id="top"></div>
 
+
 <p align="center">
  <img src="allocator.png" alt=" logo" width="500px"/>                                                           
 </p>  
+
+![Static Badge](https://img.shields.io/badge/Status-Abandoned-red)
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -20,7 +23,6 @@
     </li>
   </ol>
 </details>
-
 
 
 <!-- ABOUT THE PROJECT -->
