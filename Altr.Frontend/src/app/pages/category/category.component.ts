@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { AltrTableColumn, AltrDialog, ICategory } from 'src/app/foundation/types';
+import { AltrTableColumn, AltrDialog } from 'src/app/foundation/types';
 
 import { DialogModalService } from 'src/app/foundation/services/dialog-modal.service';
 import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -29,7 +29,7 @@ export class CategoryComponent implements OnInit {
     public helper: HelperService, private route: ActivatedRoute, private fb: FormBuilder) {
     this.crudService.categoryList = [];
   }
-  dataSource: ICategory[];
+  dataSource: CategoryModel[];
   tableColumn: AltrTableColumn[];
 
 
@@ -38,18 +38,18 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.initializeColumns();
-    this.crudService.categoryList = this.route.snapshot.data['category'];
+    this.crudService.categoryList = this.route.snapshot.data[this.endPoint];
   }
 
   // Sorting functionality
   sortData(sortParameters: Sort ): any[] {
     const keyName = sortParameters.active;
     if (sortParameters.direction === 'asc') {
-      this.crudService.categoryList = this.crudService.categoryList.sort((a: ICategory, b: ICategory) => a[keyName].localeCompare(b[keyName]));
+      this.crudService.categoryList = this.crudService.categoryList.sort((a: CategoryModel, b: CategoryModel) => a[keyName].localeCompare(b[keyName]));
     } else if (sortParameters.direction === 'desc') {
-      this.crudService.categoryList = this.crudService.categoryList.sort((a: ICategory, b: ICategory) => b[keyName].localeCompare(a[keyName]));
+      this.crudService.categoryList = this.crudService.categoryList.sort((a: CategoryModel, b: CategoryModel) => b[keyName].localeCompare(a[keyName]));
     } else {
-      return this.crudService.categoryList = this.route.snapshot.data['category'];
+      return this.crudService.categoryList = this.route.snapshot.data[this.endPoint];
     }
   }
 
@@ -121,7 +121,7 @@ export class CategoryComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(50)]],
     },
     {
-      validators: MustNotMatch(this.crudService, 'code', 'category', 'category')
+      validators: MustNotMatch(this.crudService, 'code', this.endPoint, this.endPoint)
     } as AbstractControlOptions);
   }
 
@@ -145,8 +145,8 @@ export class CategoryComponent implements OnInit {
         })
       ).subscribe({
         next: () => {
-          this.crudService.refreshList('category', 'category');
-          this.helper.toastrCreate('create-success', 'category');
+          this.crudService.refreshCategoryList(this.endPoint);
+          this.helper.toastrCreate('create-success', this.endPoint);
           window.location.reload();
         },
         error: error => {
@@ -197,8 +197,8 @@ export class CategoryComponent implements OnInit {
         })
       ).subscribe({
         next: () => {
-          this.crudService.refreshList('category', 'category');
-          this.helper.toastrCreate('update-success', 'category');
+          this.crudService.refreshCategoryList(this.endPoint);
+          this.helper.toastrCreate('update-success', this.endPoint);
         },
         error: error => {
           console.log(error)
